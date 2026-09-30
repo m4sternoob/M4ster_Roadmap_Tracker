@@ -63,8 +63,14 @@ export function Column({
         </span>
       </div>
 
-      <div className="flex-1 flex flex-col gap-2 min-h-[160px] px-2.5 pb-2.5 overflow-y-auto" role="list">
-        <SortableContext items={visibleIssues.map((i) => i.id)} strategy={verticalListSortingStrategy}>
+      <div
+        className="flex-1 flex flex-col gap-2 min-h-[160px] px-2.5 pb-2.5 overflow-y-auto"
+        role="list"
+      >
+        <SortableContext
+          items={visibleIssues.map((i) => i.id)}
+          strategy={verticalListSortingStrategy}
+        >
           {visibleIssues.map((issue) => (
             <IssueCard key={issue.id} issue={issue} onClick={onIssueClick} />
           ))}

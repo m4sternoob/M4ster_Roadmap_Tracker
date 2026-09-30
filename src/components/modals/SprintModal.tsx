@@ -46,7 +46,11 @@ export function SprintModal({ project, onClose }: SprintModalProps) {
       <div className="dark:bg-dark-card bg-white rounded-xl border dark:border-dark-border max-w-md w-full">
         <div className="flex items-center justify-between p-4 border-b dark:border-dark-border">
           <h2 className="text-xl font-semibold">Create Sprint</h2>
-          <button onClick={onClose} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" aria-label="Close">
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+            aria-label="Close"
+          >
             <X size={20} />
           </button>
         </div>

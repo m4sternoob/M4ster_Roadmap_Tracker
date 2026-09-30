@@ -47,7 +47,10 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
       });
     } else {
       Object.keys(defaultValues).forEach((key) => {
-        setValue(key as keyof typeof defaultValues, defaultValues[key as keyof typeof defaultValues]);
+        setValue(
+          key as keyof typeof defaultValues,
+          defaultValues[key as keyof typeof defaultValues]
+        );
       });
       setValue('status', useProjectStore.getState().newIssueDefaultStatus);
     }
@@ -64,7 +67,10 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
       priority: data.priority,
       storyPoints: data.storyPoints,
       assignee: data.assignee.trim() || undefined,
-      labels: data.labels.split(',').map((l) => l.trim()).filter(Boolean),
+      labels: data.labels
+        .split(',')
+        .map((l) => l.trim())
+        .filter(Boolean),
       epicId: data.epicId || undefined,
       sprintId: data.sprintId || undefined,
       dueDate: data.dueDate || undefined,
@@ -93,7 +99,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
       <div className="dark:bg-dark-card bg-white rounded-xl border dark:border-dark-border max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b dark:border-dark-border sticky top-0 bg-inherit z-10">
           <h2 className="text-xl font-semibold">{isEditing ? 'Edit Issue' : 'Create Issue'}</h2>
-          <button onClick={onClose} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" aria-label="Close">
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+            aria-label="Close"
+          >
             <X size={20} />
           </button>
         </div>
@@ -196,7 +206,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
               >
                 <option value="">None</option>
                 {epics.map((epic) => (
-                  <option key={epic.id} value={epic.id} style={{ borderLeft: `4px solid ${epic.color}` }}>
+                  <option
+                    key={epic.id}
+                    value={epic.id}
+                    style={{ borderLeft: `4px solid ${epic.color}` }}
+                  >
                     {epic.key}: {epic.name}
                   </option>
                 ))}

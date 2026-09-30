@@ -16,7 +16,11 @@ export function ConfirmDialog({ title, message, onConfirm, onCancel }: ConfirmDi
             <AlertTriangle className="text-amber-500" size={20} />
             <h2 className="text-xl font-semibold">{title}</h2>
           </div>
-          <button onClick={onCancel} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" aria-label="Close">
+          <button
+            onClick={onCancel}
+            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+            aria-label="Close"
+          >
             <X size={20} />
           </button>
         </div>

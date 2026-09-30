@@ -3,7 +3,7 @@
 ## Supported Versions
 
 | Version | Supported |
-|---------|-----------|
+| ------- | --------- |
 | 1.0.x   | ✅ Yes    |
 
 ## Reporting a Vulnerability
@@ -22,6 +22,7 @@ We will acknowledge receipt within 48 hours and provide a timeline for fix.
 ## Scope
 
 This policy covers:
+
 - The m4ster-tracker frontend application
 - CI/CD pipeline configuration
 - Docker image build process
@@ -38,6 +39,7 @@ This policy covers:
 ## Safe Harbor
 
 We consider good-faith security research authorized when you:
+
 - Make a good faith effort to avoid privacy violations, data destruction, service interruption
 - Only interact with your own test accounts/data
 - Report findings promptly

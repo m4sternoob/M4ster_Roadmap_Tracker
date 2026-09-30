@@ -1,4 +1,12 @@
-import { DndContext, closestCenter, KeyboardSensor, PointerSensor, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { Column } from '@/components/ui/Column';
 import { STATUSES, type Status } from '@/types';
@@ -41,13 +49,14 @@ export function BoardView({
     useProjectStore.getState().moveIssue(issueId, newStatus);
   };
 
-  const columnIssues = columns.map((status) =>
-    project?.issues
-      .filter((i) => i.status === status)
-      .sort((a, b) => {
-        const priorityOrder = { critical: 3, high: 2, medium: 1, low: 0 };
-        return priorityOrder[b.priority] - priorityOrder[a.priority];
-      }) || []
+  const columnIssues = columns.map(
+    (status) =>
+      project?.issues
+        .filter((i) => i.status === status)
+        .sort((a, b) => {
+          const priorityOrder = { critical: 3, high: 2, medium: 1, low: 0 };
+          return priorityOrder[b.priority] - priorityOrder[a.priority];
+        }) || []
   );
 
   return (
@@ -57,7 +66,10 @@ export function BoardView({
       onDragEnd={handleDragEnd}
       onDragOver={(e) => setDragOverColumn(e.over ? resolveStatus(e.over.id as string) : null)}
     >
-      <div className="flex gap-3 overflow-x-auto pb-4 -mx-1 px-1" style={{ minHeight: 'calc(100vh - 220px)' }}>
+      <div
+        className="flex gap-3 overflow-x-auto pb-4 -mx-1 px-1"
+        style={{ minHeight: 'calc(100vh - 220px)' }}
+      >
         {columns.map((status, index) => (
           <Column
             key={status}

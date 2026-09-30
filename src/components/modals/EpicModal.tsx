@@ -4,8 +4,16 @@ import { X, Save } from 'lucide-react';
 import { useProjectStore } from '@/store/projectStore';
 
 const EPIC_COLORS = [
-  '#8b5cf6', '#0ea5e9', '#22c55e', '#f59e0b', '#ef4444',
-  '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1',
+  '#8b5cf6',
+  '#0ea5e9',
+  '#22c55e',
+  '#f59e0b',
+  '#ef4444',
+  '#ec4899',
+  '#06b6d4',
+  '#84cc16',
+  '#f97316',
+  '#6366f1',
 ];
 
 interface EpicModalProps {
@@ -22,13 +30,21 @@ export function EpicModal({ project, onClose }: EpicModalProps) {
   });
 
   useEffect(() => {
-    setFormData({ name: '', description: '', color: EPIC_COLORS[project.epics.length % EPIC_COLORS.length] });
+    setFormData({
+      name: '',
+      description: '',
+      color: EPIC_COLORS[project.epics.length % EPIC_COLORS.length],
+    });
   }, [project.epics.length]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim()) return;
-    createEpic({ name: formData.name.trim(), description: formData.description.trim(), color: formData.color });
+    createEpic({
+      name: formData.name.trim(),
+      description: formData.description.trim(),
+      color: formData.color,
+    });
     onClose();
   };
 
@@ -37,7 +53,11 @@ export function EpicModal({ project, onClose }: EpicModalProps) {
       <div className="dark:bg-dark-card bg-white rounded-xl border dark:border-dark-border max-w-md w-full">
         <div className="flex items-center justify-between p-4 border-b dark:border-dark-border">
           <h2 className="text-xl font-semibold">Create Epic</h2>
-          <button onClick={onClose} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" aria-label="Close">
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+            aria-label="Close"
+          >
             <X size={20} />
           </button>
         </div>

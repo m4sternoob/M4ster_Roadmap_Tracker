@@ -13,7 +13,10 @@ function getSprintBurndownData(project: Project, sprintId: string) {
   const end = new Date(sprint.endDate);
   const totalDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
   const today = new Date();
-  const elapsedDays = Math.max(0, Math.min(totalDays, Math.ceil((today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))));
+  const elapsedDays = Math.max(
+    0,
+    Math.min(totalDays, Math.ceil((today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)))
+  );
 
   // Ideal burndown line
   const ideal = Array.from({ length: totalDays + 1 }, (_, i) => ({
@@ -22,17 +25,21 @@ function getSprintBurndownData(project: Project, sprintId: string) {
   }));
 
   // Actual burndown - based on done issues
-  const donePoints = sprintIssues.filter((i) => i.status === 'done').reduce((sum, i) => sum + i.storyPoints, 0);
+  const donePoints = sprintIssues
+    .filter((i) => i.status === 'done')
+    .reduce((sum, i) => sum + i.storyPoints, 0);
   const actual = Array.from({ length: elapsedDays + 1 }, (_, i) => ({
     day: i,
-    points: Math.round(totalPoints - (donePoints * (i / Math.max(1, elapsedDays)))),
+    points: Math.round(totalPoints - donePoints * (i / Math.max(1, elapsedDays))),
   }));
 
   return { ideal, actual, totalPoints, donePoints, totalDays, elapsedDays, sprint };
 }
 
 export function ReportsView({ project }: { project: Project }) {
-  const activeSprints = project.sprints.filter((s) => s.status === 'active' || s.status === 'completed');
+  const activeSprints = project.sprints.filter(
+    (s) => s.status === 'active' || s.status === 'completed'
+  );
 
   if (activeSprints.length === 0) {
     return (
@@ -64,7 +71,8 @@ export function ReportsView({ project }: { project: Project }) {
         const { ideal, actual, totalPoints, donePoints, totalDays, elapsedDays, sprint: s } = data;
         const progress = totalPoints > 0 ? Math.round((donePoints / totalPoints) * 100) : 0;
         const isComplete = s.status === 'completed' || progress >= 100;
-        const isBehind = actual.length > 1 && actual[actual.length - 1].points > ideal[actual.length - 1].points;
+        const isBehind =
+          actual.length > 1 && actual[actual.length - 1].points > ideal[actual.length - 1].points;
 
         // Simple SVG chart
         const chartWidth = 600;
@@ -73,39 +81,83 @@ export function ReportsView({ project }: { project: Project }) {
         const xScale = (chartWidth - 2 * padding) / totalDays;
         const yScale = (chartHeight - 2 * padding) / totalPoints;
 
-        const idealPath = ideal.map((p, i) => `${padding + i * xScale},${padding + p.points * yScale}`).join(' ');
-        const actualPath = actual.map((p, i) => `${padding + i * xScale},${padding + p.points * yScale}`).join(' ');
+        const idealPath = ideal
+          .map((p, i) => `${padding + i * xScale},${padding + p.points * yScale}`)
+          .join(' ');
+        const actualPath = actual
+          .map((p, i) => `${padding + i * xScale},${padding + p.points * yScale}`)
+          .join(' ');
 
         return (
-          <div key={s.id} className="dark:bg-dark-card bg-white rounded-xl border dark:border-dark-border p-6">
+          <div
+            key={s.id}
+            className="dark:bg-dark-card bg-white rounded-xl border dark:border-dark-border p-6"
+          >
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
               <div>
                 <h3 className="text-xl font-semibold">{s.name}</h3>
                 <p className="text-sm text-muted-foreground">{s.goal}</p>
               </div>
               <div className="flex items-center gap-4 text-sm">
-                <span className={`flex items-center gap-1.5 ${isComplete ? 'text-green-500' : isBehind ? 'text-red-500' : 'text-amber-500'}`}>
-                  {isComplete ? <TrendingUp size={16} /> : isBehind ? <TrendingDown size={16} /> : <Minus size={16} />}
+                <span
+                  className={`flex items-center gap-1.5 ${isComplete ? 'text-green-500' : isBehind ? 'text-red-500' : 'text-amber-500'}`}
+                >
+                  {isComplete ? (
+                    <TrendingUp size={16} />
+                  ) : isBehind ? (
+                    <TrendingDown size={16} />
+                  ) : (
+                    <Minus size={16} />
+                  )}
                   {isComplete ? 'Complete' : isBehind ? 'Behind' : 'On Track'}
                 </span>
                 <span className="font-mono text-lg font-bold">{progress}%</span>
-                <span className="text-muted-foreground">{donePoints} / {totalPoints} pts</span>
+                <span className="text-muted-foreground">
+                  {donePoints} / {totalPoints} pts
+                </span>
               </div>
             </div>
 
             <div className="relative h-80">
-              <svg width="100%" height="100%" viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full h-full">
+              <svg
+                width="100%"
+                height="100%"
+                viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+                className="w-full h-full"
+              >
                 {/* Grid lines */}
                 <defs>
                   <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-                    <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="0.5" opacity="0.1" />
+                    <path
+                      d="M 50 0 L 0 0 0 50"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="0.5"
+                      opacity="0.1"
+                    />
                   </pattern>
                 </defs>
                 <rect width={chartWidth} height={chartHeight} fill="url(#grid)" />
 
                 {/* Axes */}
-                <line x1={padding} y1={padding} x2={padding} y2={chartHeight - padding} stroke="currentColor" strokeWidth={1} opacity="0.3" />
-                <line x1={padding} y1={chartHeight - padding} x2={chartWidth - padding} y2={chartHeight - padding} stroke="currentColor" strokeWidth={1} opacity="0.3" />
+                <line
+                  x1={padding}
+                  y1={padding}
+                  x2={padding}
+                  y2={chartHeight - padding}
+                  stroke="currentColor"
+                  strokeWidth={1}
+                  opacity="0.3"
+                />
+                <line
+                  x1={padding}
+                  y1={chartHeight - padding}
+                  x2={chartWidth - padding}
+                  y2={chartHeight - padding}
+                  stroke="currentColor"
+                  strokeWidth={1}
+                  opacity="0.3"
+                />
 
                 {/* Y-axis labels */}
                 {[0, totalPoints / 2, totalPoints].map((val) => (
@@ -150,7 +202,13 @@ export function ReportsView({ project }: { project: Project }) {
                   points={idealPath}
                   opacity={0.7}
                 />
-                <text x={chartWidth - padding - 60} y={padding + 20} fontSize="11" fill="#0ea5e9" opacity={0.7}>
+                <text
+                  x={chartWidth - padding - 60}
+                  y={padding + 20}
+                  fontSize="11"
+                  fill="#0ea5e9"
+                  opacity={0.7}
+                >
                   Ideal
                 </text>
 
@@ -194,7 +252,9 @@ export function ReportsView({ project }: { project: Project }) {
                 <div className="text-muted-foreground">Start</div>
               </div>
               <div className="text-center p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">
-                <div className="font-bold text-lg">{elapsedDays} / {totalDays}</div>
+                <div className="font-bold text-lg">
+                  {elapsedDays} / {totalDays}
+                </div>
                 <div className="text-muted-foreground">Days Elapsed</div>
               </div>
               <div className="text-center p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50">

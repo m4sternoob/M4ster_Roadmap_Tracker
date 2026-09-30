@@ -1,6 +1,17 @@
 import { useRef } from 'react';
 import type { Project } from '@/types';
-import { Plus, Download, Upload, Settings, BarChart2, Layers, List, Calendar, Sun, Moon } from 'lucide-react';
+import {
+  Plus,
+  Download,
+  Upload,
+  Settings,
+  BarChart2,
+  Layers,
+  List,
+  Calendar,
+  Sun,
+  Moon,
+} from 'lucide-react';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { useProjectStore } from '@/store/projectStore';
 
@@ -30,17 +41,25 @@ export function Toolbar({ project }: { project: Project }) {
             </div>
             <div className="hidden sm:block leading-tight">
               <div className="flex items-center gap-2">
-                <span className="text-sm font-semibold text-slate-900 dark:text-dark-text">{project.name}</span>
+                <span className="text-sm font-semibold text-slate-900 dark:text-dark-text">
+                  {project.name}
+                </span>
                 <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-dark-muted">
                   {project.key}
                 </span>
               </div>
-              <span className="text-[11px] text-slate-400 dark:text-dark-muted">{project.issues.length} issues tracked</span>
+              <span className="text-[11px] text-slate-400 dark:text-dark-muted">
+                {project.issues.length} issues tracked
+              </span>
             </div>
           </div>
 
           {/* View tabs */}
-          <nav className="flex items-center gap-0.5 bg-slate-100 dark:bg-slate-900/60 rounded-lg p-1" role="tablist" aria-label="Main views">
+          <nav
+            className="flex items-center gap-0.5 bg-slate-100 dark:bg-slate-900/60 rounded-lg p-1"
+            role="tablist"
+            aria-label="Main views"
+          >
             {views.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}

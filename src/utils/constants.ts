@@ -5,8 +5,16 @@ export const SPRINT_STATUS_STYLES: Record<string, string> = {
 };
 
 export const EPIC_COLORS = [
-  '#8b5cf6', '#0ea5e9', '#22c55e', '#f59e0b', '#ef4444',
-  '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1',
+  '#8b5cf6',
+  '#0ea5e9',
+  '#22c55e',
+  '#f59e0b',
+  '#ef4444',
+  '#ec4899',
+  '#06b6d4',
+  '#84cc16',
+  '#f97316',
+  '#6366f1',
 ];
 
 export const PRIORITY_COLORS: Record<string, string> = {

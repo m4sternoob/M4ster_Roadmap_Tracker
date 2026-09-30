@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { generateIssueKey, generateEpicKey, formatDate, isOverdue, initials } from '@/utils/helpers';
+import {
+  generateIssueKey,
+  generateEpicKey,
+  formatDate,
+  isOverdue,
+  initials,
+} from '@/utils/helpers';
 
 describe('helpers', () => {
   describe('generateIssueKey', () => {

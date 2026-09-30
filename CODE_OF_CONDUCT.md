@@ -7,6 +7,7 @@ We pledge to make participation in our community a harassment-free experience fo
 ## Our Standards
 
 ### Positive Behavior
+
 - Use welcoming, inclusive language
 - Respect differing viewpoints and experiences
 - Gracefully accept constructive criticism
@@ -14,6 +15,7 @@ We pledge to make participation in our community a harassment-free experience fo
 - Show empathy toward other community members
 
 ### Unacceptable Behavior
+
 - Trolling, insulting/derogatory comments, personal/political attacks
 - Public or private harassment
 - Publishing others' private information without consent

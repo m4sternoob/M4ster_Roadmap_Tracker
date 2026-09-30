@@ -13,10 +13,25 @@ import { SettingsModal } from '@/components/modals/SettingsModal';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 function App() {
-  const { initializeProject, project, activeView, selectedIssue, setSelectedIssue,
-    showIssueModal, setShowIssueModal, showEpicModal, setShowEpicModal,
-    showSprintModal, setShowSprintModal, showSettingsModal, setShowSettingsModal,
-    showConfirmDialog, setShowConfirmDialog, dragOverColumn, setDragOverColumn } = useProjectStore();
+  const {
+    initializeProject,
+    project,
+    activeView,
+    selectedIssue,
+    setSelectedIssue,
+    showIssueModal,
+    setShowIssueModal,
+    showEpicModal,
+    setShowEpicModal,
+    showSprintModal,
+    setShowSprintModal,
+    showSettingsModal,
+    setShowSettingsModal,
+    showConfirmDialog,
+    setShowConfirmDialog,
+    dragOverColumn,
+    setDragOverColumn,
+  } = useProjectStore();
 
   useEffect(() => {
     initializeProject();
@@ -44,9 +59,20 @@ function App() {
         <Toolbar project={project} />
 
         <main className="px-4 md:px-6 lg:px-8 py-6 max-w-[1600px] mx-auto">
-          {activeView === 'board' && <BoardView project={project} dragOverColumn={dragOverColumn} setDragOverColumn={setDragOverColumn} onIssueClick={handleIssueClick} />}
-          {activeView === 'backlog' && <BacklogView project={project} onIssueClick={handleIssueClick} />}
-          {activeView === 'sprints' && <SprintsView project={project} onIssueClick={handleIssueClick} />}
+          {activeView === 'board' && (
+            <BoardView
+              project={project}
+              dragOverColumn={dragOverColumn}
+              setDragOverColumn={setDragOverColumn}
+              onIssueClick={handleIssueClick}
+            />
+          )}
+          {activeView === 'backlog' && (
+            <BacklogView project={project} onIssueClick={handleIssueClick} />
+          )}
+          {activeView === 'sprints' && (
+            <SprintsView project={project} onIssueClick={handleIssueClick} />
+          )}
           {activeView === 'reports' && <ReportsView project={project} />}
         </main>
 
@@ -54,36 +80,31 @@ function App() {
           <IssueModal
             project={project}
             issue={selectedIssue}
-            onClose={() => { setShowIssueModal(false); setSelectedIssue(null); }}
+            onClose={() => {
+              setShowIssueModal(false);
+              setSelectedIssue(null);
+            }}
           />
         )}
 
-        {showEpicModal && (
-          <EpicModal
-            project={project}
-            onClose={() => setShowEpicModal(false)}
-          />
-        )}
+        {showEpicModal && <EpicModal project={project} onClose={() => setShowEpicModal(false)} />}
 
         {showSprintModal && (
-          <SprintModal
-            project={project}
-            onClose={() => setShowSprintModal(false)}
-          />
+          <SprintModal project={project} onClose={() => setShowSprintModal(false)} />
         )}
 
         {showSettingsModal && (
-          <SettingsModal
-            project={project}
-            onClose={() => setShowSettingsModal(false)}
-          />
+          <SettingsModal project={project} onClose={() => setShowSettingsModal(false)} />
         )}
 
         {showConfirmDialog && (
           <ConfirmDialog
             title={showConfirmDialog.title}
             message={showConfirmDialog.message}
-            onConfirm={() => { showConfirmDialog.onConfirm(); setShowConfirmDialog(null); }}
+            onConfirm={() => {
+              showConfirmDialog.onConfirm();
+              setShowConfirmDialog(null);
+            }}
             onCancel={() => setShowConfirmDialog(null)}
           />
         )}

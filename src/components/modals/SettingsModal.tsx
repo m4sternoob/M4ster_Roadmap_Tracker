@@ -34,7 +34,11 @@ export function SettingsModal({ project, onClose }: SettingsModalProps) {
           <h2 className="text-xl font-semibold flex items-center gap-2">
             <Settings size={20} /> Project Settings
           </h2>
-          <button onClick={onClose} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors" aria-label="Close">
+          <button
+            onClick={onClose}
+            className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+            aria-label="Close"
+          >
             <X size={20} />
           </button>
         </div>
@@ -96,7 +100,8 @@ export function SettingsModal({ project, onClose }: SettingsModalProps) {
               <Upload size={18} /> Import Project
             </h3>
             <p className="text-sm text-muted-foreground mb-3">
-              Restore from a previously exported JSON file. <strong>This will replace all current data.</strong>
+              Restore from a previously exported JSON file.{' '}
+              <strong>This will replace all current data.</strong>
             </p>
             <input
               type="file"

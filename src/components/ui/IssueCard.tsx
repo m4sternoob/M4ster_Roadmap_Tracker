@@ -31,7 +31,9 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
   const type = ISSUE_TYPES.find((t) => t.value === issue.type)!;
   const PriorityIcon = PRIORITY_ICONS[issue.priority] ?? ArrowRight;
 
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: issue.id });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: issue.id,
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -64,7 +66,9 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
           <span className="text-[13px] shrink-0 leading-none" title={type.label}>
             {type.icon}
           </span>
-          <span className="font-mono text-[11px] text-slate-400 dark:text-dark-muted truncate">{issue.key}</span>
+          <span className="font-mono text-[11px] text-slate-400 dark:text-dark-muted truncate">
+            {issue.key}
+          </span>
         </div>
         <PriorityIcon size={13} style={{ color: priority.color }} className="shrink-0 mt-0.5" />
       </div>
@@ -76,7 +80,10 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
       {issue.labels.length > 0 && (
         <div className="mb-2 flex flex-wrap gap-1">
           {issue.labels.slice(0, 3).map((label) => (
-            <span key={label} className="px-1.5 py-0.5 text-[10px] font-medium rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-dark-muted">
+            <span
+              key={label}
+              className="px-1.5 py-0.5 text-[10px] font-medium rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-dark-muted"
+            >
               {label}
             </span>
           ))}
@@ -86,7 +93,10 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           {issue.storyPoints > 0 && (
-            <span className="flex items-center gap-0.5 text-[11px] font-medium text-slate-400 dark:text-dark-muted" title="Story points">
+            <span
+              className="flex items-center gap-0.5 text-[11px] font-medium text-slate-400 dark:text-dark-muted"
+              title="Story points"
+            >
               <Zap size={11} className="text-amber-500" />
               {issue.storyPoints}
             </span>
@@ -99,7 +109,10 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
               title="Due date"
             >
               <Calendar size={11} />
-              {new Date(issue.dueDate).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+              {new Date(issue.dueDate).toLocaleDateString(undefined, {
+                month: 'short',
+                day: 'numeric',
+              })}
             </span>
           )}
         </div>

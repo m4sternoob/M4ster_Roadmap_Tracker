@@ -18,46 +18,51 @@ Thank you for contributing! 🎉
 
 Follow [Conventional Commits](https://www.conventionalcommits.org/):
 
-| Type | Example |
-|------|---------|
-| `feat:` | `feat: add sprint burndown export` |
-| `fix:` | `fix: drag-drop not working on mobile` |
-| `docs:` | `docs: update README deployment section` |
-| `refactor:` | `refactor: extract IssueCard component` |
-| `test:` | `test: add helpers test coverage` |
-| `chore:` | `chore: update dependencies` |
-| `perf:` | `perf: virtualize column rendering` |
-| `ci:` | `ci: add Docker build step` |
+| Type        | Example                                  |
+| ----------- | ---------------------------------------- |
+| `feat:`     | `feat: add sprint burndown export`       |
+| `fix:`      | `fix: drag-drop not working on mobile`   |
+| `docs:`     | `docs: update README deployment section` |
+| `refactor:` | `refactor: extract IssueCard component`  |
+| `test:`     | `test: add helpers test coverage`        |
+| `chore:`    | `chore: update dependencies`             |
+| `perf:`     | `perf: virtualize column rendering`      |
+| `ci:`       | `ci: add Docker build step`              |
 
 **Breaking changes**: Add `!` after type: `feat!: rename Project.key to Project.prefix`
 
 ## Code Standards
 
 ### TypeScript
+
 - Strict mode enabled — no `any` unless absolutely necessary
 - Use type imports: `import type { Issue } from '@/types'`
 - Prefer interfaces over type aliases for objects
 - Export types from `src/types/index.ts`
 
 ### React
+
 - Functional components with hooks
 - `React.FC` discouraged — use plain functions
 - Props interface named `ComponentNameProps`
 - Memoize with `React.memo` / `useMemo` / `useCallback` when needed
 
 ### Styling (Tailwind v4)
+
 - Utility-first — avoid custom CSS
 - Use design tokens from `tailwind.config.js`
 - Dark mode via `dark:` prefix
 - Responsive: `md:`, `lg:`, `xl:`
 
 ### Testing
+
 - Unit tests for pure functions (`src/utils/`)
 - Component tests for UI logic (`src/components/**/*.test.tsx`)
 - Integration tests for store (`src/store/*.test.ts`)
 - Aim for >80% coverage on new code
 
 ### Accessibility
+
 - Semantic HTML (`<main>`, `<nav>`, `<button>`, `<dialog>`)
 - ARIA labels on icon-only buttons
 - Focus visible styles (`focus-visible:`)
@@ -105,6 +110,7 @@ src/
 ## Reporting Bugs
 
 Use the [Bug Report template](.github/ISSUE_TEMPLATE/bug_report.yml) with:
+
 - Clear reproduction steps
 - Expected vs actual behavior
 - Browser/OS/device
@@ -114,6 +120,7 @@ Use the [Bug Report template](.github/ISSUE_TEMPLATE/bug_report.yml) with:
 ## Feature Requests
 
 Use the [Feature Request template](.github/ISSUE_TEMPLATE/feature_request.yml):
+
 - Problem statement
 - Proposed solution
 - Alternatives considered

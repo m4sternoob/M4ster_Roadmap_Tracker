@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2024-09-27
 
 ### Added
+
 - **Kanban Board**: 5-column board (Backlog, To Do, In Progress, Review, Done) with drag-and-drop via @dnd-kit
 - **Issue Management**: Full CRUD for issues with types (Epic, Story, Task, Subtask, Bug), priorities (Low, Medium, High, Critical), story points, assignees, labels, due dates
 - **Epic System**: Color-coded epics with issue grouping and progress tracking
@@ -26,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Code Quality**: Oxlint + ESLint + Prettier + TypeScript strict
 
 ### Technical
+
 - React 19 + Vite 8 + Tailwind CSS v4
 - Zustand for state management
 - date-fns for date utilities
@@ -36,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Planned for v1.1
+
 - Global search (Cmd+K)
 - Column filters
 - Keyboard shortcuts
@@ -48,15 +51,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Legend
 
-| Emoji | Meaning |
-|-------|---------|
-| ✨ | New feature |
-| 🐛 | Bug fix |
-| 📝 | Documentation |
-| ♻️ | Refactor |
-| ⚡ | Performance |
-| 🧪 | Tests |
-| 🔧 | Tooling/Config |
-| 🔒 | Security |
-| 🐳 | Docker |
-| ♿ | Accessibility |
+| Emoji | Meaning        |
+| ----- | -------------- |
+| ✨    | New feature    |
+| 🐛    | Bug fix        |
+| 📝    | Documentation  |
+| ♻️    | Refactor       |
+| ⚡    | Performance    |
+| 🧪    | Tests          |
+| 🔧    | Tooling/Config |
+| 🔒    | Security       |
+| 🐳    | Docker         |
+| ♿    | Accessibility  |

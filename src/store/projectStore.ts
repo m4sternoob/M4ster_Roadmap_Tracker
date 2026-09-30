@@ -33,7 +33,9 @@ interface ProjectState {
   showSettingsModal: boolean;
   setShowSettingsModal: (show: boolean) => void;
   showConfirmDialog: { title: string; message: string; onConfirm: () => void } | null;
-  setShowConfirmDialog: (dialog: { title: string; message: string; onConfirm: () => void } | null) => void;
+  setShowConfirmDialog: (
+    dialog: { title: string; message: string; onConfirm: () => void } | null
+  ) => void;
   dragOverColumn: Status | null;
   setDragOverColumn: (status: Status | null) => void;
   newIssueDefaultStatus: Status;
@@ -206,9 +208,7 @@ export const useProjectStore = create<ProjectState>()(
             ? {
                 ...state.project,
                 issues: state.project.issues.map((issue) =>
-                  issue.id === issueId
-                    ? { ...issue, ...input, updatedAt: now }
-                    : issue
+                  issue.id === issueId ? { ...issue, ...input, updatedAt: now } : issue
                 ),
                 updatedAt: now,
               }
@@ -246,7 +246,10 @@ export const useProjectStore = create<ProjectState>()(
         if (!issue || issue.status === newStatus) return;
 
         const now = new Date().toISOString();
-        const updates: UpdateIssueInput = { status: newStatus, completedAt: newStatus === 'done' ? now : undefined };
+        const updates: UpdateIssueInput = {
+          status: newStatus,
+          completedAt: newStatus === 'done' ? now : undefined,
+        };
 
         set((state) => ({
           project: state.project
@@ -269,9 +272,7 @@ export const useProjectStore = create<ProjectState>()(
             ? {
                 ...state.project,
                 issues: state.project.issues.map((issue) =>
-                  issueIds.includes(issue.id)
-                    ? { ...issue, ...input, updatedAt: now }
-                    : issue
+                  issueIds.includes(issue.id) ? { ...issue, ...input, updatedAt: now } : issue
                 ),
                 updatedAt: now,
               }
@@ -285,8 +286,16 @@ export const useProjectStore = create<ProjectState>()(
         if (!project) throw new Error('No project loaded');
 
         const EPIC_COLORS = [
-          '#8b5cf6', '#0ea5e9', '#22c55e', '#f59e0b', '#ef4444',
-          '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#6366f1',
+          '#8b5cf6',
+          '#0ea5e9',
+          '#22c55e',
+          '#f59e0b',
+          '#ef4444',
+          '#ec4899',
+          '#06b6d4',
+          '#84cc16',
+          '#f97316',
+          '#6366f1',
         ];
 
         const now = new Date().toISOString();
@@ -401,7 +410,9 @@ export const useProjectStore = create<ProjectState>()(
                 ...state.project,
                 sprints: state.project.sprints.filter((s) => s.id !== sprintId),
                 issues: state.project.issues.map((issue) =>
-                  issue.sprintId === sprintId ? { ...issue, sprintId: undefined, updatedAt: now } : issue
+                  issue.sprintId === sprintId
+                    ? { ...issue, sprintId: undefined, updatedAt: now }
+                    : issue
                 ),
                 currentSprintId:
                   state.project.currentSprintId === sprintId
@@ -546,9 +557,7 @@ export const useProjectStore = create<ProjectState>()(
         }
 
         if (filters.labels?.length) {
-          issues = issues.filter((i) =>
-            filters.labels!.some((l) => i.labels.includes(l))
-          );
+          issues = issues.filter((i) => filters.labels!.some((l) => i.labels.includes(l)));
         }
 
         if (filters.dateFrom) {

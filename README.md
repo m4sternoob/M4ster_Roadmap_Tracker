@@ -20,32 +20,34 @@ No backend required. Data persists in localStorage. Deploy anywhere as static fi
 
 ## ✨ Features
 
-| Category | Features |
-|----------|----------|
-| **Kanban Board** | Drag-and-drop (@dnd-kit), 5 columns (Backlog → To Do → In Progress → Review → Done), priority sorting, virtualized columns |
+| Category             | Features                                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **Kanban Board**     | Drag-and-drop (@dnd-kit), 5 columns (Backlog → To Do → In Progress → Review → Done), priority sorting, virtualized columns           |
 | **Issue Management** | Create/edit/delete, types (Epic/Story/Task/Subtask/Bug), priorities, story points, assignees, labels, due dates, epic/sprint linking |
-| **Epics** | Color-coded, issue grouping, progress tracking |
-| **Sprints** | Planning → Active → Complete lifecycle, sprint goals, burndown charts, issue assignment |
-| **Reports** | SVG burndown charts (ideal vs actual), velocity tracking, sprint health indicators |
-| **UX** | Dark/light theme (system + manual), keyboard navigation, ARIA labels, focus management, responsive grid |
-| **Data** | localStorage persistence, export/import JSON backups, zero-config |
-| **DevEx** | TypeScript strict, ESLint + Oxlint, Prettier, Vitest, CI/CD, Docker |
+| **Epics**            | Color-coded, issue grouping, progress tracking                                                                                       |
+| **Sprints**          | Planning → Active → Complete lifecycle, sprint goals, burndown charts, issue assignment                                              |
+| **Reports**          | SVG burndown charts (ideal vs actual), velocity tracking, sprint health indicators                                                   |
+| **UX**               | Dark/light theme (system + manual), keyboard navigation, ARIA labels, focus management, responsive grid                              |
+| **Data**             | localStorage persistence, export/import JSON backups, zero-config                                                                    |
+| **DevEx**            | TypeScript strict, ESLint + Oxlint, Prettier, Vitest, CI/CD, Docker                                                                  |
 
 ## 📸 Screenshots
 
-| Board View | Backlog | Sprint Burndown |
-|------------|---------|-----------------|
+| Board View                           | Backlog                                  | Sprint Burndown                            |
+| ------------------------------------ | ---------------------------------------- | ------------------------------------------ |
 | ![board](docs/screenshots/board.png) | ![backlog](docs/screenshots/backlog.png) | ![burndown](docs/screenshots/burndown.png) |
 
-*Add screenshots to `docs/screenshots/` after first deploy*
+_Add screenshots to `docs/screenshots/` after first deploy_
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Node.js 20+
 - npm / pnpm / yarn
 
 ### Local Development
+
 ```bash
 # Clone
 git clone https://github.com/YOUR_USERNAME/m4ster-tracker.git
@@ -59,6 +61,7 @@ npm run dev
 ```
 
 ### Available Scripts
+
 ```bash
 npm run dev          # Start dev server with HMR
 npm run build        # Production build → ./dist
@@ -87,16 +90,17 @@ docker-compose up -d
 ```
 
 **docker-compose.yml** (for production):
+
 ```yaml
 version: '3.8'
 services:
   app:
     build: .
     ports:
-      - "80:80"
+      - '80:80'
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost/"]
+      test: ['CMD', 'wget', '-q', '--spider', 'http://localhost/']
       interval: 30s
       timeout: 3s
       retries: 3
@@ -105,24 +109,28 @@ services:
 ## ☁️ Deployment
 
 ### Vercel (Recommended)
+
 1. Push to GitHub
 2. Import project in Vercel
 3. Auto-detects Vite → deploys on every push
 4. Custom domain in Settings → Domains
 
 ### Netlify
+
 ```bash
 npm run build
 # Drag ./dist to Netlify Drop or connect repo
 ```
 
 ### Static Hosting (Anywhere)
+
 ```bash
 npm run build
 # Upload ./dist to: GitHub Pages, Cloudflare Pages, AWS S3, Firebase, Surge, etc.
 ```
 
 ### Docker Hub / Container Registry
+
 ```bash
 docker tag m4ster-tracker YOUR_USERNAME/m4ster-tracker:latest
 docker push YOUR_USERNAME/m4ster-tracker:latest
@@ -152,11 +160,13 @@ src/
 ```
 
 ### State Management
+
 - **Zustand** with `persist` middleware → localStorage
 - Single source of truth for Project, Issues, Epics, Sprints, UI state
 - Optimistic updates, auto-save on every mutation
 
 ### Data Model
+
 ```typescript
 Project {
   id, key, name, description
@@ -193,6 +203,7 @@ npm run test:coverage
 ```
 
 **Test Structure:**
+
 - `src/utils/helpers.test.ts` — Pure function tests (generate keys, formatting, overdue detection)
 - Add component tests in `src/components/**/*.test.tsx`
 - Add integration tests in `src/test/integration/`
@@ -200,28 +211,32 @@ npm run test:coverage
 ## 🔧 Configuration
 
 ### Tailwind v4
+
 `tailwind.config.js` — Custom colors, fonts, animations, dark mode
 
 ### TypeScript
+
 `tsconfig.json` — Strict mode, path aliases (`@/`, `@components/`, etc.)
 
 ### Vite
+
 `vite.config.ts` — Aliases, chunk splitting, dev server config
 
 ### CI/CD
+
 `.github/workflows/ci.yml` — Lint → Test → Build → Docker → Deploy
 
 ## 🗺️ Roadmap
 
 See [ROADMAP.md](ROADMAP.md) for detailed phases.
 
-| Phase | Focus | Status |
-|-------|-------|--------|
-| **v1.0** | Core Kanban, sprints, burndown, themes, persistence | ✅ Done |
-| **v1.1** | Search/filter, keyboard shortcuts, PWA, a11y audit | 🔄 Next |
-| **v1.2** | Backend API, auth, realtime, comments, teams | ⏳ Planned |
+| Phase    | Focus                                                | Status     |
+| -------- | ---------------------------------------------------- | ---------- |
+| **v1.0** | Core Kanban, sprints, burndown, themes, persistence  | ✅ Done    |
+| **v1.1** | Search/filter, keyboard shortcuts, PWA, a11y audit   | 🔄 Next    |
+| **v1.2** | Backend API, auth, realtime, comments, teams         | ⏳ Planned |
 | **v1.3** | GitHub/GitLab sync, webhooks, Slack/Discord, imports | ⏳ Planned |
-| **v2.0** | Time tracking, AI assist, custom fields, automation | ⏳ Planned |
+| **v2.0** | Time tracking, AI assist, custom fields, automation  | ⏳ Planned |
 
 ## 🤝 Contributing
 
@@ -232,6 +247,7 @@ See [ROADMAP.md](ROADMAP.md) for detailed phases.
 5. Open a Pull Request
 
 ### Code Style
+
 - TypeScript strict mode
 - ESLint + Oxlint (run `npm run lint:fix`)
 - Prettier (run `npm run format`)
