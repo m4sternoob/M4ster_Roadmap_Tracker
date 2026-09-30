@@ -42,11 +42,11 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
   // Get unique assignees and labels for this column
   const columnIssues = useMemo(() => searchIssues({ status: [status] }), [searchIssues, status]);
   const assignees = useMemo(
-    () => [...new Set(columnIssues.map(i => i.assignee).filter(Boolean))] as string[],
+    () => [...new Set(columnIssues.map((i) => i.assignee).filter(Boolean))] as string[],
     [columnIssues]
   );
   const allLabels = useMemo(
-    () => [...new Set(columnIssues.flatMap(i => i.labels))],
+    () => [...new Set(columnIssues.flatMap((i) => i.labels))],
     [columnIssues]
   );
 
@@ -57,32 +57,30 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
     filters.labels.length > 0;
 
   const handlePriorityToggle = (p: Priority) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
       priority: prev.priority.includes(p)
-        ? prev.priority.filter(x => x !== p)
+        ? prev.priority.filter((x) => x !== p)
         : [...prev.priority, p],
     }));
   };
 
   const handleTypeToggle = (t: IssueType) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      type: prev.type.includes(t)
-        ? prev.type.filter(x => x !== t)
-        : [...prev.type, t],
+      type: prev.type.includes(t) ? prev.type.filter((x) => x !== t) : [...prev.type, t],
     }));
   };
 
   const handleAssigneeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilters(prev => ({ ...prev, assignee: e.target.value }));
+    setFilters((prev) => ({ ...prev, assignee: e.target.value }));
   };
 
   const handleLabelToggle = (label: string) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
       labels: prev.labels.includes(label)
-        ? prev.labels.filter(x => x !== label)
+        ? prev.labels.filter((x) => x !== label)
         : [...prev.labels, label],
     }));
   };
@@ -98,7 +96,7 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
         onClick={() => setIsOpen(!isOpen)}
         className={`p-2 rounded-lg text-slate-500 dark:text-dark-muted hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-dark-text transition-colors flex items-center gap-1.5 ${hasActiveFilters ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20' : ''}`}
         aria-label={`Filter ${status} column${hasActiveFilters ? ' (active)' : ''}`}
-        title={`Filter ${STATUSES.find(s => s.value === status)?.label} column${hasActiveFilters ? ' - active' : ''}`}
+        title={`Filter ${STATUSES.find((s) => s.value === status)?.label} column${hasActiveFilters ? ' - active' : ''}`}
       >
         <Filter size={16} />
         {hasActiveFilters && <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />}
@@ -108,8 +106,13 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
       {isOpen && (
         <div className="fixed z-50 mt-2 w-72 bg-white dark:bg-dark-card rounded-xl border border-slate-200 dark:border-dark-border shadow-xl animate-scale-in">
           <div className="p-3 border-b border-slate-200 dark:border-dark-border flex items-center justify-between">
-            <h3 className="font-semibold text-sm">Filter {STATUSES.find(s => s.value === status)?.label}</h3>
-            <button onClick={() => setIsOpen(false)} className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
+            <h3 className="font-semibold text-sm">
+              Filter {STATUSES.find((s) => s.value === status)?.label}
+            </h3>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg"
+            >
               <X size={16} />
             </button>
           </div>
@@ -117,9 +120,11 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
           <div className="p-3 space-y-4 max-h-[60vh] overflow-y-auto">
             {/* Priority */}
             <div>
-              <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">Priority</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">
+                Priority
+              </label>
               <div className="flex flex-wrap gap-1.5">
-                {PRIORITIES.map(p => (
+                {PRIORITIES.map((p) => (
                   <button
                     key={p.value}
                     onClick={() => handlePriorityToggle(p.value)}
@@ -142,9 +147,11 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
 
             {/* Type */}
             <div>
-              <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">Type</label>
+              <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">
+                Type
+              </label>
               <div className="flex flex-wrap gap-1.5">
-                {ISSUE_TYPES.map(t => (
+                {ISSUE_TYPES.map((t) => (
                   <button
                     key={t.value}
                     onClick={() => handleTypeToggle(t.value)}
@@ -159,15 +166,19 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
             {/* Assignee */}
             {assignees.length > 0 && (
               <div>
-                <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">Assignee</label>
+                <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">
+                  Assignee
+                </label>
                 <select
                   value={filters.assignee}
                   onChange={handleAssigneeChange}
                   className="w-full px-2 py-1.5 text-sm bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-dark-border rounded-lg text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
                 >
                   <option value="">All assignees</option>
-                  {assignees.map(a => (
-                    <option key={a} value={a}>{a}</option>
+                  {assignees.map((a) => (
+                    <option key={a} value={a}>
+                      {a}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -176,9 +187,11 @@ export function ColumnFilter({ status }: ColumnFilterProps) {
             {/* Labels */}
             {allLabels.length > 0 && (
               <div>
-                <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">Labels</label>
+                <label className="block text-xs font-medium text-slate-500 dark:text-dark-muted mb-2">
+                  Labels
+                </label>
                 <div className="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto">
-                  {allLabels.map(label => (
+                  {allLabels.map((label) => (
                     <button
                       key={label}
                       onClick={() => handleLabelToggle(label)}
