@@ -120,10 +120,7 @@ function App() {
         )}
 
         {showSearchModal && (
-          <SearchModal
-            onSelectIssue={handleSearchSelectIssue}
-            onClose={() => closeSearch()}
-          />
+          <SearchModal onSelectIssue={handleSearchSelectIssue} onClose={() => closeSearch()} />
         )}
       </div>
     </ThemeProvider>

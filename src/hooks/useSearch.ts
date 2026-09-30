@@ -6,7 +6,7 @@ export function useSearch() {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const searchIssues = useProjectStore(state => state.searchIssues);
+  const searchIssues = useProjectStore((state) => state.searchIssues);
 
   // Perform search with current query
   const results = useMemo(() => {
@@ -15,14 +15,14 @@ export function useSearch() {
     const filters: SearchFilters = { query: query.trim() };
     const issues = searchIssues(filters);
 
-    return issues.map(issue => {
+    return issues.map((issue) => {
       const matchedFields: string[] = [];
       const q = query.toLowerCase();
 
       if (issue.title.toLowerCase().includes(q)) matchedFields.push('title');
       if (issue.description.toLowerCase().includes(q)) matchedFields.push('description');
       if (issue.key.toLowerCase().includes(q)) matchedFields.push('key');
-      if (issue.labels.some(l => l.toLowerCase().includes(q))) matchedFields.push('labels');
+      if (issue.labels.some((l) => l.toLowerCase().includes(q))) matchedFields.push('labels');
       if (issue.assignee?.toLowerCase().includes(q)) matchedFields.push('assignee');
 
       return { issue, matchedFields };
@@ -30,27 +30,30 @@ export function useSearch() {
   }, [query, searchIssues]);
 
   // Handle keyboard navigation
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (!isOpen) return;
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (!isOpen) return;
 
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setSelectedIndex(prev => Math.min(prev + 1, results.length - 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setSelectedIndex(prev => Math.max(prev - 1, 0));
-        break;
-      case 'Enter':
-        e.preventDefault();
-        return results[selectedIndex]?.issue;
-      case 'Escape':
-        close();
-        break;
-    }
-    return null;
-  }, [isOpen, results, selectedIndex]);
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setSelectedIndex((prev) => Math.min(prev + 1, results.length - 1));
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setSelectedIndex((prev) => Math.max(prev - 1, 0));
+          break;
+        case 'Enter':
+          e.preventDefault();
+          return results[selectedIndex]?.issue;
+        case 'Escape':
+          close();
+          break;
+      }
+      return null;
+    },
+    [isOpen, results, selectedIndex]
+  );
 
   const open = useCallback(() => {
     setIsOpen(true);
@@ -159,5 +162,12 @@ export function useKeyboardShortcuts() {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [setShowIssueModal, setShowEpicModal, setShowSprintModal, setSelectedIssue, setActiveView, activeView]);
+  }, [
+    setShowIssueModal,
+    setShowEpicModal,
+    setShowSprintModal,
+    setSelectedIssue,
+    setActiveView,
+    activeView,
+  ]);
 }

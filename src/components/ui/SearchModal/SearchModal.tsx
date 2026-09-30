@@ -28,24 +28,20 @@ function highlightMatch(text: string, query: string): React.ReactNode {
 
   const parts = text.split(new RegExp(`(${query})`, 'gi'));
   return parts.map((part, i) =>
-    part.toLowerCase() === query.toLowerCase()
-      ? <mark key={i} className="bg-yellow-200 dark:bg-yellow-800 rounded px-0.5">{part}</mark>
-      : <span key={i}>{part}</span>
+    part.toLowerCase() === query.toLowerCase() ? (
+      <mark key={i} className="bg-yellow-200 dark:bg-yellow-800 rounded px-0.5">
+        {part}
+      </mark>
+    ) : (
+      <span key={i}>{part}</span>
+    )
   );
 }
 
 export function SearchModal({ onSelectIssue, onClose }: SearchModalProps) {
-  const {
-    query,
-    setQuery,
-    isOpen,
-    results,
-    selectedIndex,
-    handleKeyDown,
-    close,
-  } = useSearch();
+  const { query, setQuery, isOpen, results, selectedIndex, handleKeyDown, close } = useSearch();
 
-  const handleSelectIssue = (issue: typeof results[0]['issue']) => {
+  const handleSelectIssue = (issue: (typeof results)[0]['issue']) => {
     onSelectIssue(issue);
     close();
     onClose();
@@ -74,7 +70,7 @@ export function SearchModal({ onSelectIssue, onClose }: SearchModalProps) {
             <input
               type="text"
               value={query}
-              onChange={e => setQuery(e.target.value)}
+              onChange={(e) => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
               autoFocus
               placeholder="Search issues... (title, key, labels, assignee)"
@@ -133,8 +129,11 @@ export function SearchModal({ onSelectIssue, onClose }: SearchModalProps) {
                 >
                   <div className="flex items-start gap-3">
                     {/* Issue Type Icon */}
-                    <span className="text-[14px] shrink-0 mt-0.5" title={ISSUE_TYPES.find(t => t.value === issue.type)?.label}>
-                      {ISSUE_TYPES.find(t => t.value === issue.type)?.icon}
+                    <span
+                      className="text-[14px] shrink-0 mt-0.5"
+                      title={ISSUE_TYPES.find((t) => t.value === issue.type)?.label}
+                    >
+                      {ISSUE_TYPES.find((t) => t.value === issue.type)?.icon}
                     </span>
 
                     {/* Issue Content */}
@@ -145,15 +144,21 @@ export function SearchModal({ onSelectIssue, onClose }: SearchModalProps) {
                         </span>
                         <span
                           className="px-1.5 py-0.5 text-[10px] font-medium rounded-full"
-                          style={{ backgroundColor: PRIORITY_COLORS[issue.priority] + '20', color: PRIORITY_COLORS[issue.priority] }}
+                          style={{
+                            backgroundColor: PRIORITY_COLORS[issue.priority] + '20',
+                            color: PRIORITY_COLORS[issue.priority],
+                          }}
                         >
                           {issue.priority}
                         </span>
                         <span
                           className="px-1.5 py-0.5 text-[10px] font-medium rounded-full"
-                          style={{ backgroundColor: STATUS_COLORS[issue.status] + '20', color: STATUS_COLORS[issue.status] }}
+                          style={{
+                            backgroundColor: STATUS_COLORS[issue.status] + '20',
+                            color: STATUS_COLORS[issue.status],
+                          }}
                         >
-                          {STATUSES.find(s => s.value === issue.status)?.label}
+                          {STATUSES.find((s) => s.value === issue.status)?.label}
                         </span>
                       </div>
 
@@ -170,7 +175,7 @@ export function SearchModal({ onSelectIssue, onClose }: SearchModalProps) {
                       {/* Matched fields badges */}
                       {matchedFields.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-1">
-                          {matchedFields.map(field => (
+                          {matchedFields.map((field) => (
                             <span
                               key={field}
                               className="px-1.5 py-0.5 text-[10px] font-medium rounded bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300"
