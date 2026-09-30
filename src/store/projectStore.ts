@@ -40,6 +40,8 @@ interface ProjectState {
   setDragOverColumn: (status: Status | null) => void;
   newIssueDefaultStatus: Status;
   setNewIssueDefaultStatus: (status: Status) => void;
+  showSearchModal: boolean;
+  setShowSearchModal: (show: boolean) => void;
 
   // Actions
   initializeProject: () => Promise<void>;
@@ -123,6 +125,8 @@ export const useProjectStore = create<ProjectState>()(
       setDragOverColumn: (status) => set({ dragOverColumn: status }),
       newIssueDefaultStatus: 'backlog',
       setNewIssueDefaultStatus: (status) => set({ newIssueDefaultStatus: status }),
+      showSearchModal: false,
+      setShowSearchModal: (show) => set({ showSearchModal: show }),
 
       initializeProject: async () => {
         set({ isLoading: true, error: null });

@@ -11,11 +11,12 @@ import {
   Calendar,
   Sun,
   Moon,
+  Search,
 } from 'lucide-react';
 import { useTheme } from '@/components/providers/ThemeProvider';
 import { useProjectStore } from '@/store/projectStore';
 
-export function Toolbar({ project }: { project: Project }) {
+export function Toolbar({ project, onSearch }: { project: Project; onSearch?: () => void }) {
   const { theme, toggleTheme } = useTheme();
   const { activeView, setActiveView } = useProjectStore();
   const importInputRef = useRef<HTMLInputElement>(null);
@@ -118,6 +119,16 @@ export function Toolbar({ project }: { project: Project }) {
               title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
+            {/* Search button */}
+            <button
+              onClick={onSearch}
+              className="p-2 rounded-lg text-slate-500 dark:text-dark-muted hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-800 dark:hover:text-dark-text transition-colors"
+              aria-label="Search (⌘K)"
+              title="Search issues (⌘K)"
+            >
+              <Search size={16} />
             </button>
 
             <button

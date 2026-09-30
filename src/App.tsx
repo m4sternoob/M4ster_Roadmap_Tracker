@@ -11,6 +11,8 @@ import { EpicModal } from '@/components/modals/EpicModal';
 import { SprintModal } from '@/components/modals/SprintModal';
 import { SettingsModal } from '@/components/modals/SettingsModal';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { SearchModal } from '@/components/ui/SearchModal/SearchModal';
+import { useSearch, useKeyboardShortcuts } from '@/hooks/useSearch';
 
 function App() {
   const {
@@ -33,6 +35,9 @@ function App() {
     setDragOverColumn,
   } = useProjectStore();
 
+  const { open: openSearch, close: closeSearch, isOpen: showSearchModal } = useSearch();
+  useKeyboardShortcuts();
+
   useEffect(() => {
     initializeProject();
   }, [initializeProject]);
@@ -53,10 +58,15 @@ function App() {
     setShowIssueModal(true);
   };
 
+  const handleSearchSelectIssue = (issue: typeof selectedIssue) => {
+    setSelectedIssue(issue);
+    setShowIssueModal(true);
+  };
+
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-dark-bg dark:text-dark-text font-sans">
-        <Toolbar project={project} />
+        <Toolbar project={project} onSearch={openSearch} />
 
         <main className="px-4 md:px-6 lg:px-8 py-6 max-w-[1600px] mx-auto">
           {activeView === 'board' && (
@@ -106,6 +116,13 @@ function App() {
               setShowConfirmDialog(null);
             }}
             onCancel={() => setShowConfirmDialog(null)}
+          />
+        )}
+
+        {showSearchModal && (
+          <SearchModal
+            onSelectIssue={handleSearchSelectIssue}
+            onClose={() => closeSearch()}
           />
         )}
       </div>
