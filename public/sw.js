@@ -2,11 +2,7 @@
 // This is a minimal service worker for offline-first caching
 
 const CACHE_NAME = 'm4ster-tracker-v1';
-const STATIC_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-];
+const STATIC_ASSETS = ['/', '/index.html', '/manifest.json'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -21,9 +17,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
+        cacheNames.filter((name) => name !== CACHE_NAME).map((name) => caches.delete(name))
       );
     })
   );
@@ -45,34 +39,38 @@ self.addEventListener('fetch', (event) => {
       if (cachedResponse) {
         // Return cached response and update cache in background
         event.waitUntil(
-          fetch(request).then((networkResponse) => {
-            if (networkResponse.ok) {
-              caches.open(CACHE_NAME).then((cache) => {
-                cache.put(request, networkResponse.clone());
-              });
-            }
-          }).catch(() => {
-            // Network failed, cached response already returned
-          })
+          fetch(request)
+            .then((networkResponse) => {
+              if (networkResponse.ok) {
+                caches.open(CACHE_NAME).then((cache) => {
+                  cache.put(request, networkResponse.clone());
+                });
+              }
+            })
+            .catch(() => {
+              // Network failed, cached response already returned
+            })
         );
         return cachedResponse;
       }
 
       // Not in cache, fetch from network
-      return fetch(request).then((networkResponse) => {
-        if (networkResponse.ok) {
-          const responseClone = networkResponse.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(request, responseClone);
-          });
-        }
-        return networkResponse;
-      }).catch(() => {
-        // Network failed, return offline page if available
-        if (request.mode === 'navigate') {
-          return caches.match('/index.html');
-        }
-      });
+      return fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse.ok) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Network failed, return offline page if available
+          if (request.mode === 'navigate') {
+            return caches.match('/index.html');
+          }
+        });
     })
   );
 });

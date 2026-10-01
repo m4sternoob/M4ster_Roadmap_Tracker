@@ -40,7 +40,8 @@ function showUpdateNotification() {
   // Create a subtle notification banner
   const banner = document.createElement('div');
   banner.id = 'sw-update-banner';
-  banner.className = 'fixed bottom-4 right-4 z-50 bg-primary-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in';
+  banner.className =
+    'fixed bottom-4 right-4 z-50 bg-primary-600 text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 animate-slide-in';
   banner.innerHTML = `
     <span>New version available!</span>
     <button id="sw-update-btn" class="px-3 py-1 bg-white/20 hover:bg-white/30 rounded text-sm font-medium">Refresh</button>
@@ -115,7 +116,8 @@ export function installPWA() {
 
     const btn = document.createElement('button');
     btn.id = 'pwa-install-btn';
-    btn.className = 'fixed bottom-4 left-4 z-40 bg-primary-600 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium flex items-center gap-2 animate-slide-in';
+    btn.className =
+      'fixed bottom-4 left-4 z-40 bg-primary-600 text-white px-4 py-2 rounded-lg shadow-lg text-sm font-medium flex items-center gap-2 animate-slide-in';
     btn.innerHTML = `
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -156,7 +158,8 @@ export function setupOnlineOfflineHandlers() {
       if (!indicator) {
         indicator = document.createElement('div');
         indicator.id = 'offline-indicator';
-        indicator.className = 'fixed top-0 left-0 right-0 z-50 bg-amber-600 text-white text-center py-1 text-sm animate-slide-in';
+        indicator.className =
+          'fixed top-0 left-0 right-0 z-50 bg-amber-600 text-white text-center py-1 text-sm animate-slide-in';
         indicator.textContent = 'You are offline. Changes will sync when reconnected.';
         document.body.prepend(indicator);
       }
