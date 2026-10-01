@@ -1,5 +1,16 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { Search, X, HelpCircle, Plus, Layers, Calendar, BarChart2, List, Keyboard, Maximize } from 'lucide-react';
+import {
+  Search,
+  X,
+  HelpCircle,
+  Plus,
+  Layers,
+  Calendar,
+  BarChart2,
+  List,
+  Keyboard,
+  Maximize,
+} from 'lucide-react';
 import { useFullscreen } from '@/hooks/useFullscreen';
 import { useProjectStore } from '@/store/projectStore';
 
@@ -35,7 +46,7 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
         description: 'Open global search (Cmd+K)',
         shortcut: '⌘K',
         icon: <Search size={16} />,
-        action: () => { },
+        action: () => {},
         category: 'navigation',
       },
       {
@@ -82,7 +93,10 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
         description: 'Create a new issue',
         shortcut: 'N',
         icon: <Plus size={16} />,
-        action: () => { useProjectStore.getState().setSelectedIssue(null); useProjectStore.getState().setShowIssueModal(true); },
+        action: () => {
+          useProjectStore.getState().setSelectedIssue(null);
+          useProjectStore.getState().setShowIssueModal(true);
+        },
         category: 'create',
       },
       {
@@ -111,7 +125,7 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
         description: 'Toggle fullscreen mode',
         shortcut: 'F / F11',
         icon: <Maximize size={16} />,
-        action: () => { },
+        action: () => {},
         category: 'view',
       },
 
@@ -122,7 +136,9 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
         description: 'Show all keyboard shortcuts',
         shortcut: '?',
         icon: <HelpCircle size={16} />,
-        action: () => { /* show shortcuts help */ },
+        action: () => {
+          /* show shortcuts help */
+        },
         category: 'help',
       },
     ];
@@ -136,39 +152,43 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
       return actions;
     }
     const q = query.toLowerCase();
-    return actions.filter((action) =>
-      action.label.toLowerCase().includes(q) ||
-      action.description?.toLowerCase().includes(q) ||
-      action.shortcut?.toLowerCase().includes(q) ||
-      action.category.toLowerCase().includes(q)
+    return actions.filter(
+      (action) =>
+        action.label.toLowerCase().includes(q) ||
+        action.description?.toLowerCase().includes(q) ||
+        action.shortcut?.toLowerCase().includes(q) ||
+        action.category.toLowerCase().includes(q)
     );
   }, [actions, query]);
 
   // Handle keyboard navigation inside palette
-  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault();
-        setSelectedActionIndex((prev) => Math.min(prev + 1, filteredActions.length - 1));
-        break;
-      case 'ArrowUp':
-        e.preventDefault();
-        setSelectedActionIndex((prev) => Math.max(prev - 1, 0));
-        break;
-      case 'Enter':
-        e.preventDefault();
-        if (filteredActions[selectedActionIndex]) {
-          filteredActions[selectedActionIndex].action();
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setSelectedActionIndex((prev) => Math.min(prev + 1, filteredActions.length - 1));
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setSelectedActionIndex((prev) => Math.max(prev - 1, 0));
+          break;
+        case 'Enter':
+          e.preventDefault();
+          if (filteredActions[selectedActionIndex]) {
+            filteredActions[selectedActionIndex].action();
+            setIsOpen(false);
+            onClose();
+          }
+          break;
+        case 'Escape':
           setIsOpen(false);
           onClose();
-        }
-        break;
-      case 'Escape':
-        setIsOpen(false);
-        onClose();
-        break;
-    }
-  }, [filteredActions, selectedActionIndex, onClose]);
+          break;
+      }
+    },
+    [filteredActions, selectedActionIndex, onClose]
+  );
 
   // Global key handlers
   useEffect(() => {
@@ -210,11 +230,16 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
       <div className="w-full max-w-2xl animate-scale-in">
         <div className="bg-white dark:bg-dark-card rounded-xl border dark:border-dark-border shadow-xl overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b dark:border-dark-border">
-            <h2 id="command-palette-title" className="text-xl font-semibold">Command Palette</h2>
+            <h2 id="command-palette-title" className="text-xl font-semibold">
+              Command Palette
+            </h2>
             <div className="flex items-center gap-2">
               <Keyboard className="text-slate-400 dark:text-dark-muted" size={18} />
               <button
-                onClick={() => { setIsOpen(false); onClose(); }}
+                onClick={() => {
+                  setIsOpen(false);
+                  onClose();
+                }}
                 className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
                 aria-label="Close"
               >
@@ -225,18 +250,26 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
 
           <div className="p-4">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+              <Search
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                size={20}
+              />
               <input
                 type="text"
                 value={query}
-                onChange={(e) => { setQuery(e.target.value); }}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                }}
                 onKeyDown={handleKeyDown}
                 autoFocus
                 placeholder="Type a command..."
                 className="w-full pl-12 pr-12 py-3 text-lg bg-slate-100 dark:bg-slate-800 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-inherit"
                 aria-label="Search commands"
               />
-              <Keyboard className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+              <Keyboard
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400"
+                size={18}
+              />
             </div>
           </div>
 
@@ -253,7 +286,11 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
                     key={action.id}
                     role="option"
                     aria-selected={index === selectedActionIndex}
-                    onClick={() => { action.action(); setIsOpen(false); onClose(); }}
+                    onClick={() => {
+                      action.action();
+                      setIsOpen(false);
+                      onClose();
+                    }}
                     onMouseEnter={() => setSelectedActionIndex(index)}
                     className={`px-4 py-3 rounded-lg transition-colors cursor-pointer flex items-center gap-3 ${
                       index === selectedActionIndex
@@ -286,8 +323,11 @@ export function CommandPalette({ onClose }: CommandPaletteProps) {
           </div>
 
           <div className="px-4 py-3 border-t dark:border-dark-border text-xs text-slate-400 dark:text-dark-muted text-center">
-            <Keyboard size={12} className="inline" /> <kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">Enter</kbd> Execute &nbsp;
-            <kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">Esc</kbd> Close &nbsp;
+            <Keyboard size={12} className="inline" />{' '}
+            <kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">Enter</kbd>{' '}
+            Execute &nbsp;
+            <kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">Esc</kbd> Close
+            &nbsp;
             <kbd className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">↑↓</kbd> Navigate
           </div>
         </div>
