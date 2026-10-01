@@ -1,37 +1,35 @@
 # m4ster-tracker Roadmap
 
 ## Vision
-
-Build the best open-source roadmap tracker for product teams — fast, accessible, offline-first, and extensible.
+Build the best open-source roadmap tracker for product teams — fast, accessible, offline-first, and extensible. **Cross-platform sync (PC ↔ Mac), full keyboard control, fullscreen mode, local-first with cloud sync.**
 
 ---
 
 ## v1.0 — Foundation ✅ COMPLETE
+**Released: 2024-09-27**
 
-**Released: 2024**
-
-| Feature                                                               | Status |
-| --------------------------------------------------------------------- | ------ |
-| Kanban board (5 columns)                                              | ✅     |
-| Drag-and-drop (@dnd-kit)                                              | ✅     |
-| Issue CRUD (type, priority, story points, labels, assignee, due date) | ✅     |
-| Epic management (color-coded, issue grouping)                         | ✅     |
-| Sprint lifecycle (Planning → Active → Complete)                       | ✅     |
-| Burndown charts (SVG)                                                 | ✅     |
-| Dark/light theme (persisted)                                          | ✅     |
-| localStorage persistence                                              | ✅     |
-| Export/import JSON                                                    | ✅     |
-| TypeScript strict + path aliases                                      | ✅     |
-| Vitest + Testing Library setup                                        | ✅     |
-| CI/CD (lint, test, build, Docker)                                     | ✅     |
-| Docker + nginx production config                                      | ✅     |
+| Feature | Status |
+|---------|--------|
+| Kanban board (5 columns) | ✅ |
+| Drag-and-drop (@dnd-kit) | ✅ |
+| Issue CRUD (type, priority, story points, labels, assignee, due date) | ✅ |
+| Epic management (color-coded, issue grouping) | ✅ |
+| Sprint lifecycle (Planning → Active → Complete) | ✅ |
+| Burndown charts (SVG) | ✅ |
+| Dark/light theme (persisted) | ✅ |
+| localStorage persistence | ✅ |
+| Export/import JSON | ✅ |
+| TypeScript strict + path aliases | ✅ |
+| Vitest + Testing Library setup | ✅ |
+| CI/CD (lint, test, build, Docker) | ✅ |
+| Docker + nginx production config | ✅ |
+| **Deployed to Vercel** | ✅ |
 
 ---
 
 ## v1.1 — Polish & Accessibility 🔄 NEXT (Week 1-2)
 
 ### Search & Navigation
-
 - [ ] Global search (Cmd+K) — filter issues by title, key, labels, assignee
 - [ ] Column filters (priority, type, assignee, epic, sprint)
 - [ ] Keyboard shortcuts: `n` new issue, `e` new epic, `s` new sprint, `/` search, `?` help
@@ -39,14 +37,12 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Board zoom (compact/comfortable)
 
 ### PWA & Offline
-
 - [ ] Web App Manifest + Service Worker (Workbox)
 - [ ] Offline fallback page
 - [ ] Install prompt
 - [ ] Background sync for future backend
 
 ### Accessibility Audit
-
 - [ ] Full ARIA audit (roles, labels, live regions)
 - [ ] Focus traps in modals
 - [ ] Drag-drop keyboard alternative (arrow keys + Enter/Space)
@@ -55,7 +51,6 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Reduced motion support
 
 ### Performance
-
 - [ ] Virtualized columns (react-window)
 - [ ] Memoized selectors (reselect or Zustand selectors)
 - [ ] Code-split modals (React.lazy + Suspense)
@@ -63,133 +58,234 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 
 ---
 
-## v1.2 — Collaboration & Backend ⏳ PLANNED (Week 3-5)
+## v1.2 — Cross-Platform Sync Foundation 🔄 PLANNED (Week 3-5)
 
-### Backend API
+### Cloud Backend (Supabase/Firebase)
+- [ ] Supabase project setup (PostgreSQL + Realtime + Auth)
+- [ ] Database schema: projects, issues, epics, sprints, users
+- [ ] Row-level security (RLS) policies
+- [ ] Edge functions for sync logic
 
-- [ ] Node/Express or Go backend
-- [ ] PostgreSQL + Prisma/Drizzle
-- [ ] REST + WebSocket (Socket.io or native WS)
-- [ ] Auth: Clerk / Auth0 / NextAuth (email, GitHub, Google)
-- [ ] Row-level security / project permissions
+### Authentication
+- [ ] Email/password auth
+- [ ] OAuth: GitHub, Google, Apple
+- [ ] Magic link / passwordless
+- [ ] Session management + refresh tokens
 
-### Real-time
+### Sync Engine (Phase 1: Server-Authoritative)
+- [ ] Sync queue in IndexedDB (offline mutations)
+- [ ] WebSocket connection (Supabase Realtime)
+- [ ] Conflict resolution: Last-Write-Wins + vector clocks
+- [ ] Optimistic UI updates
+- [ ] Background sync queue with retry logic
+- [ ] Sync status indicator: Online / Syncing / Offline / Pending
 
-- [ ] Live issue updates across clients
-- [ ] Presence indicators (who's viewing)
-- [ ] Optimistic UI with server reconciliation
-
-### Comments & Activity
-
-- [ ] Threaded comments on issues
-- [ ] @mentions with notifications
-- [ ] Activity feed (created, moved, assigned, commented)
-- [ ] Markdown support in descriptions/comments
-
-### Teams & Projects
-
-- [ ] Multi-project support
-- [ ] Team workspaces
-- [ ] Roles: Owner, Admin, Member, Viewer
-- [ ] Project invitations (email + link)
-- [ ] Project settings (columns, workflows, issue types)
+### Cross-Device Features
+- [ ] User presence (who's online/viewing)
+- [ ] Device management (trusted devices)
+- [ ] Sync status badge in toolbar
+- [ ] Manual "Sync Now" button
+- [ ] Pending changes counter
 
 ---
 
-## v1.3 — Integrations ⏳ PLANNED (Week 5-7)
+## v1.3 — True Multi-Device Sync (CRDT) ⏳ PLANNED (Week 6-8)
 
-### Git Sync
+### CRDT Implementation (Yjs)
+- [ ] Yjs integration for conflict-free sync
+- [ ] Yjs + WebRTC for P2P + WebSocket relay
+- [ ] Shared Y.Doc per project
+- [ ] Awareness protocol (cursors, selections)
+- [ ] Offline-first, true P2P capable
 
-- [ ] GitHub Issues ↔ m4ster-tracker (bi-directional)
-- [ ] GitLab Issues sync
-- [ ] Link PRs to issues, auto-transition on merge
-- [ ] Webhook receiver for GitHub/GitLab events
-
-### Chat & Calendar
-
-- [ ] Slack notifications (new issue, assignment, mentions)
-- [ ] Discord webhook support
-- [ ] Calendar export (.ics) for sprint dates
-- [ ] Google Calendar / Outlook sync
-
-### Import/Export
-
-- [ ] Jira CSV import
-- [ ] Linear CSV import
-- [ ] Trello JSON import
-- [ ] Notion database import
-- [ ] Asana CSV import
-- [ ] Custom field mapping UI
+### Advanced Sync Features
+- [ ] Selective sync (large attachments)
+- [ ] Per-item version history
+- [ ] Conflict resolution UI (visual merge)
+- [ ] Selective sync per project/epic
+- [ ] Bandwidth-aware sync (WiFi vs cellular)
 
 ---
 
-## v2.0 — Intelligence & Customization ⏳ PLANNED (Week 8-12)
+## v1.4 — Universal Experience (PC ↔ Mac) ⏳ PLANNED (Week 9-11)
 
-### Time Tracking & Analytics
+### Full Keyboard Control
+| Shortcut | Action |
+|----------|--------|
+| `F` / `F11` | Toggle fullscreen |
+| `Cmd/Ctrl + K` | Command palette / search |
+| `Cmd/Ctrl + N` | New issue |
+| `Cmd/Ctrl + Shift + N` | New epic |
+| `Cmd/Ctrl + Shift + S` | New sprint |
+| `Cmd/Ctrl + Shift + F` | Toggle fullscreen |
+| `/` | Focus search |
+| `?` | Show shortcuts help |
+| `1-4` | Switch views (Board/Backlog/Sprints/Reports) |
+| `Esc` | Close modals/exit fullscreen |
+| `Cmd/Ctrl + Enter` | Save & close modal |
+| `Arrow keys` | Navigate board (with focus) |
 
-- [ ] Manual time logging per issue
-- [ ] Start/stop timer
-- [ ] Velocity reports (per sprint, per person)
-- [ ] Cycle time / lead time charts
-- [ ] Burndown history (per sprint)
-- [ ] Forecasting (Monte Carlo simulation)
+### Fullscreen Mode
+- [ ] `F` / `F11` toggles true fullscreen (browser API)
+- [ ] Board fills entire viewport
+- [ ] Hide browser UI (fullscreen API)
+- [ ] Exit on `Esc` or `F`
+- [ ] Remember fullscreen preference per device
 
-### AI Assist (Local-first, optional cloud)
+### Command Palette (Cmd+K)
+- [ ] Search issues, epics, sprints
+- [ ] Quick actions (new issue, new epic, etc.)
+- [ ] Recent items
+- [ ] Keyboard navigation (arrows, enter, esc)
 
-- [ ] Sprint planning suggestions (based on velocity)
+---
+
+## v1.5 — Local-First Architecture ⏳ PLANNED (Week 12-14)
+
+### Storage Layers
+| Layer | Purpose | Persistence |
+|-------|---------|-------------|
+| **Zustand** | In-memory reactive state | Session |
+| **IndexedDB** | Large data (issues, history) | Persistent |
+| **LocalStorage** | Settings, preferences | Persistent |
+| **SessionStorage** | Transient UI state | Session |
+
+### Offline-First Guarantees
+- [ ] Full app works offline (no spinner on load)
+- [ ] All mutations queued in IndexedDB
+- [ ] Visual pending changes counter
+- [ ] Background sync on reconnect
+- [ ] Service Worker caches all assets
+- [ ] "You're offline" banner with retry
+
+### Data Portability
+- [ ] Export full project (JSON + attachments)
+- [ ] Import from JSON
+- [ ] Migration tool for schema versions
+- [ ] Backup to file (download)
+- [ ] Restore from backup file
+
+---
+
+## v2.0 — Intelligence & Collaboration ⏳ PLANNED (Month 4-6)
+
+### Intelligence
+- [ ] Sprint planning suggestions (velocity-based)
 - [ ] Duplicate issue detection
 - [ ] Auto-generate descriptions from titles
 - [ ] Sprint retrospective summary
 - [ ] Priority recommendation
 
-### Customization
+### Collaboration
+- [ ] Threaded comments on issues
+- [ ] @mentions with notifications
+- [ ] Activity feed
+- [ ] Real-time cursors (Yjs awareness)
 
+### Advanced Features
 - [ ] Custom fields (text, number, select, date, user)
 - [ ] Custom workflows (statuses, transitions)
-- [ ] Custom issue types per project
 - [ ] Automation rules (if X then Y)
 - [ ] Webhooks (outgoing)
-
-### Advanced
-
 - [ ] Dependencies (blocks / blocked by)
-- [ ] Issue hierarchies (epic → story → subtask tree view)
+- [ ] Issue hierarchies (epic → story → subtask tree)
 - [ ] Roadmap timeline view (Gantt-like)
 - [ ] Capacity planning per sprint
-- [ ] Release management (versions, changelog)
+- [ ] Release management
 
 ---
 
-## v2.1 — Platform ⏳ PLANNED
+## v2.1 — Platform & Ecosystem ⏳ PLANNED (Month 6+)
 
+### Platform
 - [ ] Public API (REST + GraphQL)
 - [ ] Webhook system (incoming/outgoing)
 - [ ] Plugin/extension system
 - [ ] Marketplace for templates, automations
 - [ ] Mobile app (React Native / Capacitor)
-- [ ] Electron desktop app
+- [ ] Electron desktop app (native menus, tray)
+
+### Self-Hostable
+- [ ] Docker Compose one-click deploy
+- [ ] Kubernetes Helm chart
+- [ ] Single binary (Go/Rust sync server option)
+- [ ] E2E encryption option
+- [ ] Admin dashboard
+
+---
+
+## Sync Architecture Deep Dive
+
+### Current (v1.0): LocalStorage Only
+```
+Browser → Zustand → localStorage (sync on every change)
+```
+
+### v1.2: Server Sync (Supabase)
+```
+Browser (Zustand + IndexedDB queue)
+    ↓
+Supabase Realtime (WebSocket)
+    ↓
+PostgreSQL (Supabase)
+    ↓
+Other devices (WebSocket push)
+```
+
+### v1.3: CRDT (Yjs)
+```
+Device A ←→ Device B (WebRTC P2P)
+    ↓
+WebSocket Relay (supabase/own server)
+    ↓
+Yjs Doc (conflict-free)
+```
 
 ---
 
 ## Release Cadence
 
-| Version | Target   | Type  |
-| ------- | -------- | ----- |
-| v1.1    | 2 weeks  | Minor |
-| v1.2    | 6 weeks  | Minor |
-| v1.3    | 8 weeks  | Minor |
-| v2.0    | 14 weeks | Major |
-
-**Patch releases** as needed for bugs/security.
-
----
-
-## Contributing to Roadmap
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) — roadmap items are tracked as GitHub Issues with `roadmap` label.
-
-**Priority voting**: React with 👍 on issues to signal interest.
+| Version | Target | Type | Focus |
+|---------|--------|------|-------|
+| v1.1 | 2 weeks | Minor | Polish, A11y, PWA |
+| v1.2 | 6 weeks | Minor | Cloud Sync (Supabase) |
+| v1.3 | 10 weeks | Minor | CRDT / True P2P |
+| v1.4 | 14 weeks | Minor | Full Keyboard/Fullscreen |
+| v1.5 | 18 weeks | Minor | Local-First Architecture |
+| v2.0 | 6 months | Major | Intelligence + Collaboration |
 
 ---
 
-_Last updated: 2024 — v1.0.0 released_
+## Immediate Next Steps (This Week)
+
+1. [ ] **Virtualized Columns** — `react-window` for large lists
+2. [ ] **A11y Audit** — ARIA roles, focus traps, keyboard drag-drop alt, WCAG AA
+3. [ ] **Supabase Setup** — Project, schema, RLS, Realtime
+4. [ ] **Sync Queue** — IndexedDB mutation queue + retry logic
+
+---
+
+## Success Metrics
+
+| Metric | Target |
+|--------|--------|
+| Sync latency (P95) | <200ms |
+| Offline load time | <500ms |
+| First paint (mobile) | <1.5s |
+| Sync conflict rate | <0.1% |
+| Offline session duration | Unlimited |
+| Cross-device sync success | 99.9% |
+
+---
+
+## Notes
+
+- **Single URL works everywhere** — https://m4ster-tracker.vercel.app opens same data on PC, Mac, mobile
+- **Local-first** — Works offline, syncs when online
+- **Keyboard-first** — Every action accessible via keyboard
+- **Fullscreen** — True fullscreen mode for focus
+- **Open source** — MIT licensed, self-hostable
+
+---
+
+*Last updated: 2024-10-01 — v1.0 released, v1.1 in progress*
