@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { Toaster } from 'react-hot-toast';
 import App from './App';
 import './styles/index.css';
+import { initPWA } from './utils/pwa';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -32,3 +33,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     />
   </React.StrictMode>
 );
+
+// Initialize PWA features
+if ('serviceWorker' in navigator) {
+  initPWA();
+}
