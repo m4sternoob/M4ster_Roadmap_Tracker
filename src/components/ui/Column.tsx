@@ -51,10 +51,11 @@ export function Column({
       }`}
       role="list"
       aria-label={`${STATUS_LABELS[status]} column`}
+      aria-roledescription="kanban column"
     >
       <div className="flex items-center justify-between px-3.5 pt-3.5 pb-2">
         <div className="flex items-center gap-2">
-          <span className={`w-2 h-2 rounded-full ${STATUS_ACCENTS[status]}`} />
+          <span className={`w-2 h-2 rounded-full ${STATUS_ACCENTS[status]}`} aria-hidden="true" />
           <h3 className="font-semibold text-[13px] uppercase tracking-wide text-slate-600 dark:text-dark-muted">
             {STATUS_LABELS[status]}
           </h3>
@@ -70,6 +71,7 @@ export function Column({
       <div
         className="flex-1 flex flex-col gap-2 min-h-[160px] px-2.5 pb-2.5 overflow-y-auto"
         role="list"
+        aria-label={`${STATUS_LABELS[status]} issues`}
       >
         <SortableContext
           items={visibleIssues.map((i) => i.id)}
@@ -90,7 +92,11 @@ export function Column({
         )}
 
         {visibleIssues.length === 0 && (
-          <div className="flex-1 flex items-center justify-center text-slate-400 dark:text-dark-muted/60 text-xs rounded-lg border border-dashed border-slate-300 dark:border-dark-border min-h-[100px]">
+          <div
+            className="flex-1 flex items-center justify-center text-slate-400 dark:text-dark-muted/60 text-xs rounded-lg border border-dashed border-slate-300 dark:border-dark-border min-h-[100px]"
+            role="status"
+            aria-live="polite"
+          >
             Drop issues here
           </div>
         )}
@@ -106,7 +112,7 @@ export function Column({
           className="w-full py-2 px-3 rounded-lg text-xs font-medium text-slate-500 dark:text-dark-muted hover:bg-white dark:hover:bg-slate-800 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center justify-center gap-1.5 border border-transparent hover:border-slate-200 dark:hover:border-dark-border"
           aria-label={`Add issue to ${STATUS_LABELS[status]}`}
         >
-          <Plus size={14} /> Add issue
+          <Plus size={14} aria-hidden="true" /> Add issue
         </button>
       </div>
     </div>

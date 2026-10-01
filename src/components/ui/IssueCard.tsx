@@ -51,38 +51,53 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
       className="group relative bg-white dark:bg-dark-card rounded-lg border border-slate-200 dark:border-dark-border pl-3 pr-3 py-2.5 cursor-grab active:cursor-grabbing overflow-hidden transition-all hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600"
       tabIndex={0}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') onClick(issue);
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(issue);
+        }
       }}
       role="button"
       aria-label={`${issue.key}: ${issue.title}`}
+      aria-grabbed={isDragging}
+      aria-describedby={`issue-${issue.id}-description`}
     >
       <span
         className="absolute left-0 top-0 bottom-0 w-1"
         style={{ backgroundColor: priority.color }}
+        aria-hidden="true"
       />
 
       <div className="flex items-start justify-between gap-2 mb-1.5">
         <div className="flex items-center gap-1.5 min-w-0">
-          <span className="text-[13px] shrink-0 leading-none" title={type.label}>
+          <span className="text-[13px] shrink-0 leading-none" title={type.label} aria-hidden="true">
             {type.icon}
           </span>
           <span className="font-mono text-[11px] text-slate-400 dark:text-dark-muted truncate">
             {issue.key}
           </span>
         </div>
-        <PriorityIcon size={13} style={{ color: priority.color }} className="shrink-0 mt-0.5" />
+        <PriorityIcon
+          size={13}
+          style={{ color: priority.color }}
+          className="shrink-0 mt-0.5"
+          aria-hidden="true"
+        />
       </div>
 
-      <h4 className="font-medium text-[13px] leading-snug mb-2 text-slate-800 dark:text-dark-text line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+      <h4
+        id={`issue-${issue.id}-description`}
+        className="font-medium text-[13px] leading-snug mb-2 text-slate-800 dark:text-dark-text line-clamp-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+      >
         {issue.title}
       </h4>
 
       {issue.labels.length > 0 && (
-        <div className="mb-2 flex flex-wrap gap-1">
+        <div className="mb-2 flex flex-wrap gap-1" role="list" aria-label="Labels">
           {issue.labels.slice(0, 3).map((label) => (
             <span
               key={label}
               className="px-1.5 py-0.5 text-[10px] font-medium rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-dark-muted"
+              role="listitem"
             >
               {label}
             </span>
@@ -97,7 +112,7 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
               className="flex items-center gap-0.5 text-[11px] font-medium text-slate-400 dark:text-dark-muted"
               title="Story points"
             >
-              <Zap size={11} className="text-amber-500" />
+              <Zap size={11} className="text-amber-500" aria-hidden="true" />
               {issue.storyPoints}
             </span>
           )}
@@ -108,7 +123,7 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
               }`}
               title="Due date"
             >
-              <Calendar size={11} />
+              <Calendar size={11} aria-hidden="true" />
               {new Date(issue.dueDate).toLocaleDateString(undefined, {
                 month: 'short',
                 day: 'numeric',
@@ -121,6 +136,7 @@ export function IssueCard({ issue, onClick }: { issue: Issue; onClick: (issue: I
           <div
             className="w-5 h-5 rounded-full bg-primary-500/15 text-primary-600 dark:text-primary-400 text-[9px] font-semibold flex items-center justify-center shrink-0"
             title={issue.assignee}
+            aria-label={`Assigned to ${issue.assignee}`}
           >
             {initials(issue.assignee)}
           </div>

@@ -95,10 +95,17 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
   const sprints = project.sprints;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="issue-modal-title"
+    >
       <div className="dark:bg-dark-card bg-white rounded-xl border dark:border-dark-border max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b dark:border-dark-border sticky top-0 bg-inherit z-10">
-          <h2 className="text-xl font-semibold">{isEditing ? 'Edit Issue' : 'Create Issue'}</h2>
+          <h2 id="issue-modal-title" className="text-xl font-semibold">
+            {isEditing ? 'Edit Issue' : 'Create Issue'}
+          </h2>
           <button
             onClick={onClose}
             className="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
@@ -108,21 +115,31 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
           </button>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="p-4 space-y-4" noValidate>
           <div>
-            <label className="block text-sm font-medium mb-1">Title *</label>
+            <label htmlFor="title" className="block text-sm font-medium mb-1">
+              Title *
+            </label>
             <input
+              id="title"
               {...register('title', { required: 'Title is required' })}
               className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
               placeholder="What needs to be done?"
               autoFocus
             />
-            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+            {errors.title && (
+              <p className="text-red-500 text-sm mt-1" role="alert">
+                {errors.title.message}
+              </p>
+            )}
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Description</label>
+            <label htmlFor="description" className="block text-sm font-medium mb-1">
+              Description
+            </label>
             <textarea
+              id="description"
               {...register('description')}
               rows={4}
               className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -132,8 +149,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium mb-1">Type</label>
+              <label htmlFor="type" className="block text-sm font-medium mb-1">
+                Type
+              </label>
               <select
+                id="type"
                 {...register('type')}
                 className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
@@ -146,8 +166,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Status</label>
+              <label htmlFor="status" className="block text-sm font-medium mb-1">
+                Status
+              </label>
               <select
+                id="status"
                 {...register('status')}
                 className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
@@ -162,8 +185,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium mb-1">Priority</label>
+              <label htmlFor="priority" className="block text-sm font-medium mb-1">
+                Priority
+              </label>
               <select
+                id="priority"
                 {...register('priority')}
                 className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
@@ -176,8 +202,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Story Points</label>
+              <label htmlFor="storyPoints" className="block text-sm font-medium mb-1">
+                Story Points
+              </label>
               <input
+                id="storyPoints"
                 type="number"
                 min="0"
                 max="100"
@@ -189,8 +218,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium mb-1">Assignee</label>
+              <label htmlFor="assignee" className="block text-sm font-medium mb-1">
+                Assignee
+              </label>
               <input
+                id="assignee"
                 type="text"
                 {...register('assignee')}
                 className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -199,8 +231,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Epic</label>
+              <label htmlFor="epicId" className="block text-sm font-medium mb-1">
+                Epic
+              </label>
               <select
+                id="epicId"
                 {...register('epicId')}
                 className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
@@ -220,8 +255,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
 
           <div className="grid gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium mb-1">Sprint</label>
+              <label htmlFor="sprintId" className="block text-sm font-medium mb-1">
+                Sprint
+              </label>
               <select
+                id="sprintId"
                 {...register('sprintId')}
                 className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
               >
@@ -235,8 +273,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Due Date</label>
+              <label htmlFor="dueDate" className="block text-sm font-medium mb-1">
+                Due Date
+              </label>
               <input
+                id="dueDate"
                 type="date"
                 {...register('dueDate')}
                 className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
@@ -245,8 +286,11 @@ export function IssueModal({ project, issue, onClose }: IssueModalProps) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Labels (comma separated)</label>
+            <label htmlFor="labels" className="block text-sm font-medium mb-1">
+              Labels (comma separated)
+            </label>
             <input
+              id="labels"
               type="text"
               {...register('labels')}
               className="w-full px-3 py-2 rounded-lg border dark:border-dark-border dark:bg-dark-bg bg-white text-inherit focus:outline-none focus:ring-2 focus:ring-primary-500"
