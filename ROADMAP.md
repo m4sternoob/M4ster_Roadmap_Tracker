@@ -1,35 +1,38 @@
 # m4ster-tracker Roadmap
 
 ## Vision
+
 Build the best open-source roadmap tracker for product teams — fast, accessible, offline-first, and extensible. **Cross-platform sync (PC ↔ Mac), full keyboard control, fullscreen mode, local-first with cloud sync.**
 
 ---
 
 ## v1.0 — Foundation ✅ COMPLETE
+
 **Released: 2024-09-27**
 
-| Feature | Status |
-|---------|--------|
-| Kanban board (5 columns) | ✅ |
-| Drag-and-drop (@dnd-kit) | ✅ |
-| Issue CRUD (type, priority, story points, labels, assignee, due date) | ✅ |
-| Epic management (color-coded, issue grouping) | ✅ |
-| Sprint lifecycle (Planning → Active → Complete) | ✅ |
-| Burndown charts (SVG) | ✅ |
-| Dark/light theme (persisted) | ✅ |
-| localStorage persistence | ✅ |
-| Export/import JSON | ✅ |
-| TypeScript strict + path aliases | ✅ |
-| Vitest + Testing Library setup | ✅ |
-| CI/CD (lint, test, build, Docker) | ✅ |
-| Docker + nginx production config | ✅ |
-| **Deployed to Vercel** | ✅ |
+| Feature                                                               | Status |
+| --------------------------------------------------------------------- | ------ |
+| Kanban board (5 columns)                                              | ✅     |
+| Drag-and-drop (@dnd-kit)                                              | ✅     |
+| Issue CRUD (type, priority, story points, labels, assignee, due date) | ✅     |
+| Epic management (color-coded, issue grouping)                         | ✅     |
+| Sprint lifecycle (Planning → Active → Complete)                       | ✅     |
+| Burndown charts (SVG)                                                 | ✅     |
+| Dark/light theme (persisted)                                          | ✅     |
+| localStorage persistence                                              | ✅     |
+| Export/import JSON                                                    | ✅     |
+| TypeScript strict + path aliases                                      | ✅     |
+| Vitest + Testing Library setup                                        | ✅     |
+| CI/CD (lint, test, build, Docker)                                     | ✅     |
+| Docker + nginx production config                                      | ✅     |
+| **Deployed to Vercel**                                                | ✅     |
 
 ---
 
 ## v1.1 — Polish & Accessibility 🔄 NEXT (Week 1-2)
 
 ### Search & Navigation
+
 - [ ] Global search (Cmd+K) — filter issues by title, key, labels, assignee
 - [ ] Column filters (priority, type, assignee, epic, sprint)
 - [ ] Keyboard shortcuts: `n` new issue, `e` new epic, `s` new sprint, `/` search, `?` help
@@ -37,12 +40,14 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Board zoom (compact/comfortable)
 
 ### PWA & Offline
+
 - [ ] Web App Manifest + Service Worker (Workbox)
 - [ ] Offline fallback page
 - [ ] Install prompt
 - [ ] Background sync for future backend
 
 ### Accessibility Audit
+
 - [ ] Full ARIA audit (roles, labels, live regions)
 - [ ] Focus traps in modals
 - [ ] Drag-drop keyboard alternative (arrow keys + Enter/Space)
@@ -51,6 +56,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Reduced motion support
 
 ### Performance
+
 - [ ] Virtualized columns (react-window)
 - [ ] Memoized selectors (reselect or Zustand selectors)
 - [ ] Code-split modals (React.lazy + Suspense)
@@ -61,18 +67,21 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 ## v1.2 — Cross-Platform Sync Foundation 🔄 PLANNED (Week 3-5)
 
 ### Cloud Backend (Supabase/Firebase)
+
 - [ ] Supabase project setup (PostgreSQL + Realtime + Auth)
 - [ ] Database schema: projects, issues, epics, sprints, users
 - [ ] Row-level security (RLS) policies
 - [ ] Edge functions for sync logic
 
 ### Authentication
+
 - [ ] Email/password auth
 - [ ] OAuth: GitHub, Google, Apple
 - [ ] Magic link / passwordless
 - [ ] Session management + refresh tokens
 
 ### Sync Engine (Phase 1: Server-Authoritative)
+
 - [ ] Sync queue in IndexedDB (offline mutations)
 - [ ] WebSocket connection (Supabase Realtime)
 - [ ] Conflict resolution: Last-Write-Wins + vector clocks
@@ -81,6 +90,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Sync status indicator: Online / Syncing / Offline / Pending
 
 ### Cross-Device Features
+
 - [ ] User presence (who's online/viewing)
 - [ ] Device management (trusted devices)
 - [ ] Sync status badge in toolbar
@@ -92,6 +102,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 ## v1.3 — True Multi-Device Sync (CRDT) ⏳ PLANNED (Week 6-8)
 
 ### CRDT Implementation (Yjs)
+
 - [ ] Yjs integration for conflict-free sync
 - [ ] Yjs + WebRTC for P2P + WebSocket relay
 - [ ] Shared Y.Doc per project
@@ -99,6 +110,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Offline-first, true P2P capable
 
 ### Advanced Sync Features
+
 - [ ] Selective sync (large attachments)
 - [ ] Per-item version history
 - [ ] Conflict resolution UI (visual merge)
@@ -110,22 +122,24 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 ## v1.4 — Universal Experience (PC ↔ Mac) ⏳ PLANNED (Week 9-11)
 
 ### Full Keyboard Control
-| Shortcut | Action |
-|----------|--------|
-| `F` / `F11` | Toggle fullscreen |
-| `Cmd/Ctrl + K` | Command palette / search |
-| `Cmd/Ctrl + N` | New issue |
-| `Cmd/Ctrl + Shift + N` | New epic |
-| `Cmd/Ctrl + Shift + S` | New sprint |
-| `Cmd/Ctrl + Shift + F` | Toggle fullscreen |
-| `/` | Focus search |
-| `?` | Show shortcuts help |
-| `1-4` | Switch views (Board/Backlog/Sprints/Reports) |
-| `Esc` | Close modals/exit fullscreen |
-| `Cmd/Ctrl + Enter` | Save & close modal |
-| `Arrow keys` | Navigate board (with focus) |
+
+| Shortcut               | Action                                       |
+| ---------------------- | -------------------------------------------- |
+| `F` / `F11`            | Toggle fullscreen                            |
+| `Cmd/Ctrl + K`         | Command palette / search                     |
+| `Cmd/Ctrl + N`         | New issue                                    |
+| `Cmd/Ctrl + Shift + N` | New epic                                     |
+| `Cmd/Ctrl + Shift + S` | New sprint                                   |
+| `Cmd/Ctrl + Shift + F` | Toggle fullscreen                            |
+| `/`                    | Focus search                                 |
+| `?`                    | Show shortcuts help                          |
+| `1-4`                  | Switch views (Board/Backlog/Sprints/Reports) |
+| `Esc`                  | Close modals/exit fullscreen                 |
+| `Cmd/Ctrl + Enter`     | Save & close modal                           |
+| `Arrow keys`           | Navigate board (with focus)                  |
 
 ### Fullscreen Mode
+
 - [ ] `F` / `F11` toggles true fullscreen (browser API)
 - [ ] Board fills entire viewport
 - [ ] Hide browser UI (fullscreen API)
@@ -133,6 +147,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Remember fullscreen preference per device
 
 ### Command Palette (Cmd+K)
+
 - [ ] Search issues, epics, sprints
 - [ ] Quick actions (new issue, new epic, etc.)
 - [ ] Recent items
@@ -143,14 +158,16 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 ## v1.5 — Local-First Architecture ⏳ PLANNED (Week 12-14)
 
 ### Storage Layers
-| Layer | Purpose | Persistence |
-|-------|---------|-------------|
-| **Zustand** | In-memory reactive state | Session |
-| **IndexedDB** | Large data (issues, history) | Persistent |
-| **LocalStorage** | Settings, preferences | Persistent |
-| **SessionStorage** | Transient UI state | Session |
+
+| Layer              | Purpose                      | Persistence |
+| ------------------ | ---------------------------- | ----------- |
+| **Zustand**        | In-memory reactive state     | Session     |
+| **IndexedDB**      | Large data (issues, history) | Persistent  |
+| **LocalStorage**   | Settings, preferences        | Persistent  |
+| **SessionStorage** | Transient UI state           | Session     |
 
 ### Offline-First Guarantees
+
 - [ ] Full app works offline (no spinner on load)
 - [ ] All mutations queued in IndexedDB
 - [ ] Visual pending changes counter
@@ -159,6 +176,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] "You're offline" banner with retry
 
 ### Data Portability
+
 - [ ] Export full project (JSON + attachments)
 - [ ] Import from JSON
 - [ ] Migration tool for schema versions
@@ -170,6 +188,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 ## v2.0 — Intelligence & Collaboration ⏳ PLANNED (Month 4-6)
 
 ### Intelligence
+
 - [ ] Sprint planning suggestions (velocity-based)
 - [ ] Duplicate issue detection
 - [ ] Auto-generate descriptions from titles
@@ -177,12 +196,14 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Priority recommendation
 
 ### Collaboration
+
 - [ ] Threaded comments on issues
 - [ ] @mentions with notifications
 - [ ] Activity feed
 - [ ] Real-time cursors (Yjs awareness)
 
 ### Advanced Features
+
 - [ ] Custom fields (text, number, select, date, user)
 - [ ] Custom workflows (statuses, transitions)
 - [ ] Automation rules (if X then Y)
@@ -198,6 +219,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 ## v2.1 — Platform & Ecosystem ⏳ PLANNED (Month 6+)
 
 ### Platform
+
 - [ ] Public API (REST + GraphQL)
 - [ ] Webhook system (incoming/outgoing)
 - [ ] Plugin/extension system
@@ -206,6 +228,7 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 - [ ] Electron desktop app (native menus, tray)
 
 ### Self-Hostable
+
 - [ ] Docker Compose one-click deploy
 - [ ] Kubernetes Helm chart
 - [ ] Single binary (Go/Rust sync server option)
@@ -217,11 +240,13 @@ Build the best open-source roadmap tracker for product teams — fast, accessibl
 ## Sync Architecture Deep Dive
 
 ### Current (v1.0): LocalStorage Only
+
 ```
 Browser → Zustand → localStorage (sync on every change)
 ```
 
 ### v1.2: Server Sync (Supabase)
+
 ```
 Browser (Zustand + IndexedDB queue)
     ↓
@@ -233,6 +258,7 @@ Other devices (WebSocket push)
 ```
 
 ### v1.3: CRDT (Yjs)
+
 ```
 Device A ←→ Device B (WebRTC P2P)
     ↓
@@ -245,14 +271,14 @@ Yjs Doc (conflict-free)
 
 ## Release Cadence
 
-| Version | Target | Type | Focus |
-|---------|--------|------|-------|
-| v1.1 | 2 weeks | Minor | Polish, A11y, PWA |
-| v1.2 | 6 weeks | Minor | Cloud Sync (Supabase) |
-| v1.3 | 10 weeks | Minor | CRDT / True P2P |
-| v1.4 | 14 weeks | Minor | Full Keyboard/Fullscreen |
-| v1.5 | 18 weeks | Minor | Local-First Architecture |
-| v2.0 | 6 months | Major | Intelligence + Collaboration |
+| Version | Target   | Type  | Focus                        |
+| ------- | -------- | ----- | ---------------------------- |
+| v1.1    | 2 weeks  | Minor | Polish, A11y, PWA            |
+| v1.2    | 6 weeks  | Minor | Cloud Sync (Supabase)        |
+| v1.3    | 10 weeks | Minor | CRDT / True P2P              |
+| v1.4    | 14 weeks | Minor | Full Keyboard/Fullscreen     |
+| v1.5    | 18 weeks | Minor | Local-First Architecture     |
+| v2.0    | 6 months | Major | Intelligence + Collaboration |
 
 ---
 
@@ -267,14 +293,14 @@ Yjs Doc (conflict-free)
 
 ## Success Metrics
 
-| Metric | Target |
-|--------|--------|
-| Sync latency (P95) | <200ms |
-| Offline load time | <500ms |
-| First paint (mobile) | <1.5s |
-| Sync conflict rate | <0.1% |
-| Offline session duration | Unlimited |
-| Cross-device sync success | 99.9% |
+| Metric                    | Target    |
+| ------------------------- | --------- |
+| Sync latency (P95)        | <200ms    |
+| Offline load time         | <500ms    |
+| First paint (mobile)      | <1.5s     |
+| Sync conflict rate        | <0.1%     |
+| Offline session duration  | Unlimited |
+| Cross-device sync success | 99.9%     |
 
 ---
 
@@ -288,4 +314,4 @@ Yjs Doc (conflict-free)
 
 ---
 
-*Last updated: 2024-10-01 — v1.0 released, v1.1 in progress*
+_Last updated: 2024-10-01 — v1.0 released, v1.1 in progress_

@@ -33,7 +33,7 @@ function VirtualizedIssueList({
       ))}
       {issues.length > visibleCount && (
         <button
-          onClick={() => setVisibleCount(c => Math.min(c + 50, issues.length))}
+          onClick={() => setVisibleCount((c) => Math.min(c + 50, issues.length))}
           className="text-xs font-medium text-primary-600 dark:text-primary-400 hover:underline py-2 self-start px-1"
         >
           Show {issues.length - visibleCount} more issues
@@ -101,11 +101,11 @@ export function VirtualizedColumn({
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col gap-2 min-h-[160px] px-2.5 pb-2.5 overflow-y-auto" role="list">
-        <VirtualizedIssueList
-          issues={issues}
-          onIssueClick={onIssueClick}
-        />
+      <div
+        className="flex-1 flex flex-col gap-2 min-h-[160px] px-2.5 pb-2.5 overflow-y-auto"
+        role="list"
+      >
+        <VirtualizedIssueList issues={issues} onIssueClick={onIssueClick} />
       </div>
 
       <div className="px-2.5 pb-2.5">
